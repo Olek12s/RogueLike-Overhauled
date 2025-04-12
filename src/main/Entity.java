@@ -2,12 +2,12 @@ package main;
 
 public class Entity
 {
-    private EntityRenderer renderer;
-    private EntityUpdater updater;
+    protected EntityRenderer renderer;
+    protected EntityUpdater updater;
 
 
-    private Movement movement;
-    private Position worldPosition;
+    protected Movement movement;
+    protected Position worldPosition = new Position(0, 0);
 
     public Entity()
     {

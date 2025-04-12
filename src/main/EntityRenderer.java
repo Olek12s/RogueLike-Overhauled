@@ -9,6 +9,7 @@ public class EntityRenderer implements IDrawable
     public EntityRenderer(Entity entity)
     {
         this.entity = entity;
+        GameController.getInstance().getDrawables().add(this);
     }
 
 

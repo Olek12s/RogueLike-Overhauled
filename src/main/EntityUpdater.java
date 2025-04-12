@@ -2,18 +2,17 @@ package main;
 
 public class EntityUpdater implements IUpdatable
 {
-    private final Entity entity;
+    protected final Entity entity;
 
     public EntityUpdater(Entity entity)
     {
         this.entity = entity;
+        GameController.getInstance().getUpdatables().add(this);
     }
 
     @Override
     public void update()
     {
-        Position pos = new Position(entity.getWorldPosition().getX(), entity.getWorldPosition().getY());
-        System.out.println(pos);
-        entity.setWorldPosition(pos);
+
     }
 }

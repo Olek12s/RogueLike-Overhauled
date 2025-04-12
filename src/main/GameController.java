@@ -1,5 +1,8 @@
 package main;
 
+import main.userInput.KeyHandler;
+import main.userInput.MouseHandler;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -32,6 +35,12 @@ public class GameController extends JPanel implements Runnable
                             //  CLASS INSTANCES      //
                             //                       //
 
+    private static Console debugConsole;
+    private static Entity player;
+    private static MouseHandler mouseHandler;
+    private static KeyHandler keyHandler;
+
+
     private GameController()
     {
         drawables = new ArrayList<>();
@@ -45,20 +54,31 @@ public class GameController extends JPanel implements Runnable
         if (instance == null)
         {
             instance = new GameController();
+            initializeThread();
+            initializeUserInput();
 
-            instance.setBackground(Color.BLACK);
-            instance.setDoubleBuffered(true);
-            instance.setFocusable(true);
-
-            mainThread = new Thread(GameController.getInstance());
-            mainThread.start();
-
-            Console debugConsole = new Console();
-            DrawableTest1 drawableTest1 = new DrawableTest1();
-            DrawableTest2 drawableTest2 = new DrawableTest2();
-            Entity player = new Player();
+            debugConsole = new Console();
+            player = new Player();
         }
         return instance;
+    }
+
+    private static void initializeUserInput() {
+        mouseHandler = new MouseHandler();
+        keyHandler = new KeyHandler();
+
+        instance.addMouseListener(mouseHandler);
+        instance.addMouseMotionListener(mouseHandler);
+        instance.addMouseWheelListener(mouseHandler);
+        instance.addKeyListener(keyHandler);
+    }
+    private static void initializeThread() {
+        instance.setBackground(Color.BLACK);
+        instance.setDoubleBuffered(true);
+        instance.setFocusable(true);
+
+        mainThread = new Thread(GameController.getInstance());
+        mainThread.start();
     }
 
     @Override
