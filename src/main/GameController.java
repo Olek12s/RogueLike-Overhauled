@@ -32,8 +32,6 @@ public class GameController extends JPanel implements Runnable
                             //  CLASS INSTANCES      //
                             //                       //
 
-  private static Console debugConsole;
-
     private GameController()
     {
         drawables = new ArrayList<>();
@@ -47,10 +45,18 @@ public class GameController extends JPanel implements Runnable
         if (instance == null)
         {
             instance = new GameController();
+
+            instance.setBackground(Color.BLACK);
+            instance.setDoubleBuffered(true);
+            instance.setFocusable(true);
+
             mainThread = new Thread(GameController.getInstance());
             mainThread.start();
 
-            debugConsole = new Console();
+            Console debugConsole = new Console();
+            DrawableTest1 drawableTest1 = new DrawableTest1();
+            DrawableTest2 drawableTest2 = new DrawableTest2();
+            Entity player = new Player();
         }
         return instance;
     }
@@ -121,10 +127,10 @@ public class GameController extends JPanel implements Runnable
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
 
-        drawables.sort((e1, e2) -> Integer.compare(e1.getDrawPriority(), e2.getDrawPriority()));
+        drawables.sort((e1, e2) -> Integer.compare(e1.getDrawPriority().value, e2.getDrawPriority().value));
         for (IDrawable drawable : drawables)
         {
-            drawable.draw(g2);  // !!! BOTTLE NECK WARNING: DRAWABLES' SPRITES ARE SCALED EVERY ITERATION WHICH IS EXTREMELY CPU-CONSUMING !!!
+            drawable.draw(g2);
         }
         g2.dispose();
         long end = System.nanoTime();

@@ -1,0 +1,19 @@
+package main;
+
+
+public enum DrawPriority
+{
+    One(1),
+    Two(2),
+    Entity(3);
+
+    public final int value;
+
+
+    /**
+     * Higher value - larger priority upon drawing
+     *
+     * @param value
+     */
+    DrawPriority(int value) {this.value = value;}
+}

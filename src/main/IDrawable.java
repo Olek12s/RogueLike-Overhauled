@@ -4,6 +4,6 @@ import java.awt.*;
 
 public interface IDrawable
 {
-    int getDrawPriority();
+    DrawPriority getDrawPriority();
     void draw(Graphics g2);
 }
