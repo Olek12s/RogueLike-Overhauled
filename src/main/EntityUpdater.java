@@ -13,6 +13,6 @@ public class EntityUpdater implements IUpdatable
     @Override
     public void update()
     {
-
+        System.out.println("a");
     }
 }
