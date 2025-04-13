@@ -47,11 +47,11 @@ public class DeepCaveGenerationStrategy implements IMapGenerationStrategy
                 val = 255.0 - val;
                 if (val >= 170)
                 {
-                    mapValues[x][y] = 80;
+                    mapValues[x][y] = 0;
                 }
                 else
                 {
-                    mapValues[x][y] = 10;
+                    mapValues[x][y] = 255;
                 }
             }
         }
