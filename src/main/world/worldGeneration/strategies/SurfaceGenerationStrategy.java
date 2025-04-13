@@ -4,7 +4,7 @@ import main.world.worldGeneration.IMapGenerationStrategy;
 import main.world.worldGeneration.MapGenerator;
 import main.world.worldGeneration.TerrainGenerator;
 
-public class SurfaceGenerationStrategy extends MapGenerator implements IMapGenerationStrategy
+public class SurfaceGenerationStrategy implements IMapGenerationStrategy
 {
     //GENERATOR VARIABLES
     private final int stepSize = 128;
@@ -16,11 +16,6 @@ public class SurfaceGenerationStrategy extends MapGenerator implements IMapGener
     private int width;
     private int height;
     //GENERATOR VARIABLES
-
-    public SurfaceGenerationStrategy(IMapGenerationStrategy generationStrategy)
-    {
-        super(generationStrategy);
-    }
 
     @Override
     public short[][] generate(int width, int height, long seed)
