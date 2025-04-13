@@ -1,4 +1,6 @@
-package main;
+package main.utilities;
+
+import main.utilities.Direction;
 
 public class Movement
 {

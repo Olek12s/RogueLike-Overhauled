@@ -1,4 +1,7 @@
-package main;
+package main.entity;
+
+import main.GameController;
+import main.IUpdatable;
 
 public class EntityUpdater implements IUpdatable
 {
@@ -7,12 +10,12 @@ public class EntityUpdater implements IUpdatable
     public EntityUpdater(Entity entity)
     {
         this.entity = entity;
-        GameController.getInstance().getUpdatables().add(this);
+        GameController.addUpdatable(this);
     }
 
     @Override
     public void update()
     {
-        System.out.println("a");
+
     }
 }

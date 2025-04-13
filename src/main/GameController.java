@@ -1,5 +1,9 @@
 package main;
 
+import main.camera.Camera;
+import main.debug.Console;
+import main.entity.Entity;
+import main.entity.player.Player;
 import main.userInput.KeyHandler;
 import main.userInput.MouseHandler;
 
@@ -16,8 +20,8 @@ public class GameController extends JPanel implements Runnable
     private long updateTime;
     private long renderTime;
 
-    private ArrayList<IDrawable> drawables;
-    private ArrayList<IUpdatable> updatables;
+    private static ArrayList<IDrawable> drawables;
+    private static ArrayList<IUpdatable> updatables;
 
                             //                       //
                             //  GETTERS AND SETTERS  //
@@ -28,6 +32,11 @@ public class GameController extends JPanel implements Runnable
     public long getRenderTime() {return renderTime;}
     public ArrayList<IDrawable> getDrawables() {return drawables;}
     public ArrayList<IUpdatable> getUpdatables() {return updatables;}
+    public static Entity getPlayer() {return player;}
+
+    public static void addUpdatable(IUpdatable updatable) {updatables.add(updatable);}
+    public static void addDrawable(IDrawable drawable) {drawables.add(drawable);}
+
 
 
 
@@ -39,6 +48,7 @@ public class GameController extends JPanel implements Runnable
     private static Entity player;
     private static MouseHandler mouseHandler;
     private static KeyHandler keyHandler;
+    private static Camera camera;
 
 
     private GameController()
@@ -59,6 +69,7 @@ public class GameController extends JPanel implements Runnable
 
             debugConsole = new Console();
             player = new Player();
+            camera = new Camera();
         }
         return instance;
     }

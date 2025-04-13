@@ -1,4 +1,7 @@
-package main;
+package main.debug;
+
+import main.GameController;
+import main.IUpdatable;
 
 public class Console implements IUpdatable
 {

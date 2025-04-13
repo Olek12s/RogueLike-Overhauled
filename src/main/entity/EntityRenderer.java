@@ -1,4 +1,10 @@
-package main;
+package main.entity;
+
+import main.utilities.DrawPriority;
+import main.GameController;
+import main.IDrawable;
+import main.utilities.Position;
+import main.camera.Camera;
 
 import java.awt.*;
 
@@ -9,7 +15,7 @@ public class EntityRenderer implements IDrawable
     public EntityRenderer(Entity entity)
     {
         this.entity = entity;
-        GameController.getInstance().getDrawables().add(this);
+        GameController.addDrawable(this);
     }
 
 
@@ -22,6 +28,8 @@ public class EntityRenderer implements IDrawable
     @Override
     public void draw(Graphics g2) {
         g2.setColor(Color.GREEN);
-        g2.fillRect(entity.getWorldPosition().getX(), entity.getWorldPosition().getY(), 50, 50);
+        Position screenPosition = Camera.toScreenPosition(entity.getWorldPosition());
+
+        g2.fillRect(screenPosition.getX(), screenPosition.getY(), 50, 50);
     }
 }

@@ -1,5 +1,7 @@
 package main;
 
+import main.utilities.DrawPriority;
+
 import java.awt.*;
 
 public interface IDrawable

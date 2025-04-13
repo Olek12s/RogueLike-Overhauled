@@ -1,4 +1,7 @@
-package main;
+package main.entity;
+
+import main.utilities.Movement;
+import main.utilities.Position;
 
 public class Entity
 {
@@ -8,6 +11,11 @@ public class Entity
 
     protected Movement movement;
     protected Position worldPosition = new Position(0, 0);
+
+    //temp
+    public int getWidth() {return 25;}
+    public int getHeight() {return 25;}
+    //temp
 
     public Entity()
     {
