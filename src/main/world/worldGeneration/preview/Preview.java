@@ -1,5 +1,6 @@
 package main.world.worldGeneration.preview;
 
+import main.world.map.MapID;
 import main.world.worldGeneration.IMapGenerationStrategy;
 import main.world.worldGeneration.MapGenerator;
 import main.world.worldGeneration.strategies.CaveGenerationStrategy;
@@ -43,8 +44,9 @@ public class Preview extends JPanel
     {
         long start = System.nanoTime();
 
-        MapGenerator generator = new MapGenerator(strategy);
-        map = generator.generateMap(WIDTH, HEIGHT);
+        //MapGenerator generator = new MapGenerator(strategy);
+        map = MapGenerator.generateMap(WIDTH, HEIGHT, strategy);
+        MapGenerator.setSeed(System.currentTimeMillis());
 
         long end = System.nanoTime();
 
@@ -76,7 +78,7 @@ public class Preview extends JPanel
 
         SwingUtilities.invokeLater(() -> {
             IMapGenerationStrategy initialStrategy = new CaveGenerationStrategy();
-            Preview previewPanel = new Preview(new MapGenerator(initialStrategy).generateMap(WIDTH, HEIGHT));
+            Preview previewPanel = new Preview(MapGenerator.generateMap(WIDTH, HEIGHT, initialStrategy));
 
             // UI frame
             JFrame frame = new JFrame("Map Preview");
