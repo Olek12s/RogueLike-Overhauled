@@ -49,11 +49,12 @@ public class CaveGenerationStrategy implements IMapGenerationStrategy
 
 
                 if (mapValues[x][y] >= 250) val = 0;
-                else if (mapValues[x][y] >= 240 && mapValues[x][y] <= 243) val = 40;
+                else if (mapValues[x][y] >= 240 && mapValues[x][y] <= 243) val = 140;
                 else if (mapValues[x][y] >= 215 && mapValues[x][y] <= 245) val = 0;
-                else if (mapValues[x][y] >= 190 && mapValues[x][y] <= 195) val = 40;
+                else if (mapValues[x][y] >= 190 && mapValues[x][y] <= 195) val = 140;
                 else if (mapValues[x][y] >= 195 && mapValues[x][y] <= 200) val = 0;
-                else if (mapValues[x][y] >= 200 && mapValues[x][y] <= 206) val = 40;
+                else if (mapValues[x][y] >= 200 && mapValues[x][y] <= 206) val = 140;
+                else if (mapValues[x][y] >= 150 && mapValues[x][y] <= 200) val = 140;
                 else val = 255;
                 mapValues[x][y] = (short)val;
             }

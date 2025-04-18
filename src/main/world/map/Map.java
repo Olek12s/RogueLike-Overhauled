@@ -5,7 +5,9 @@ import main.utilities.Position;
 import main.world.worldGeneration.MapGenerator;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Map
 {
@@ -35,26 +37,41 @@ public class Map
      */
     private void createChunks(short[][] tileMapIDValues, int size)
     {
-        int threads = Math.min(1, Thread.activeCount());
-        Executor executor = Executors.newFixedThreadPool(threads);
-        int threadChunk = size / threads / Chunk.getChunkSize();
+        int chunkSize = Chunk.getChunkSize();
+        int chunksPerSide = size / chunkSize;
+        chunks = new Chunk[chunksPerSide][chunksPerSide];
 
-        for (int x = 0; x < threadChunk; x++)
+        int threads = Runtime.getRuntime().availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(threads);
+
+        for (int cx = 0; cx < chunksPerSide; cx++)
         {
-            for (int y = 0; y < threadChunk; y++)
+            for (int cy = 0; cy < chunksPerSide; cy++)
             {
-                int chunkSize = Chunk.getChunkSize();
-                Tile[][] tiles = new Tile[chunkSize][chunkSize];
+                final int chunkX = cx;
+                final int chunkY = cy;
 
-                for (int tileX = 0; tileX < Chunk.getChunkSize(); tileX++)
-                {
-                    for (int tileY = 0; tileY < Chunk.getChunkSize(); tileY++)
-                    {
-                        tiles[tileX][tileY] = new Tile(new Position(), tileMapIDValues[tileX][tileY]);
+                executor.submit(() -> {
+                    Tile[][] tiles = new Tile[chunkSize][chunkSize];
+                    for (int tx = 0; tx < chunkSize; tx++) {
+                        for (int ty = 0; ty < chunkSize; ty++) {
+                            int worldX = chunkX * chunkSize + tx;
+                            int worldY = chunkY * chunkSize + ty;
+                            Position pos = new Position(worldX * Tile.getTileSize(), worldY * Tile.getTileSize());
+                            //TileID id = TileID.fromId(tileMapIDValues[worldX][worldY]);
+                            if (tx == 0 && ty == 0) tiles[tx][ty] = new Tile(pos, TileID.DEFAULT);
+                        }
                     }
-                }
-                chunks[x][y] = new Chunk(tiles);
+                    chunks[chunkX][chunkY] = new Chunk(tiles);
+                });
             }
+        }
+
+        executor.shutdown();
+        try {
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 }

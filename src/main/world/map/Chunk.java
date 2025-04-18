@@ -4,12 +4,11 @@ import main.utilities.Position;
 
 public class Chunk
 {
-    private static int chunkSize = 8;
+    private static final int chunkSize = 8;
+    private Tile[][] tiles;
     private Position chunkWorldPosition;
 
     public static int getChunkSize() {return chunkSize;}
-
-    private  Tile[][] tiles;
 
     public Chunk(Tile[][] tiles)
     {

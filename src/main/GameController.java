@@ -6,6 +6,7 @@ import main.entity.Entity;
 import main.entity.player.Player;
 import main.userInput.KeyHandler;
 import main.userInput.MouseHandler;
+import main.world.map.MapManager;
 import main.world.worldGeneration.MapGenerator;
 
 import javax.swing.*;
@@ -34,7 +35,8 @@ public class GameController extends JPanel implements Runnable
     public ArrayList<IDrawable> getDrawables() {return drawables;}
     public ArrayList<IUpdatable> getUpdatables() {return updatables;}
     public static Entity getPlayer() {return player;}
-    public static MapGenerator getMapGenerator() {return mapGenerator;}
+    //public static MapGenerator getMapGenerator() {return mapGenerator;}
+    public static MapManager getMapManager() {return mapManager;}
 
     public static void addUpdatable(IUpdatable updatable) {updatables.add(updatable);}
     public static void addDrawable(IDrawable drawable) {drawables.add(drawable);}
@@ -51,7 +53,8 @@ public class GameController extends JPanel implements Runnable
     private static MouseHandler mouseHandler;
     private static KeyHandler keyHandler;
     private static Camera camera;
-    private static MapGenerator mapGenerator;
+    //private static MapGenerator mapGenerator;
+    private static MapManager mapManager;
 
 
     private GameController()
@@ -73,7 +76,8 @@ public class GameController extends JPanel implements Runnable
             debugConsole = new Console();
             player = new Player();
             camera = new Camera();
-            mapGenerator = new MapGenerator();
+            //mapGenerator = new MapGenerator();
+            mapManager = new MapManager();
         }
         return instance;
     }
