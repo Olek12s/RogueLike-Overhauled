@@ -19,6 +19,5 @@ public class Tile
         this.ID = tileID;
         this.tileWorldPosition = tileWorldPosition;
         this.health = TileManager.getHealthByID(ID);
-        System.out.println("Created tile at position " + tileWorldPosition);
     }
 }

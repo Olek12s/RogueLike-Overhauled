@@ -1,6 +1,8 @@
 package main.world.map;
 
 import main.GameController;
+import main.entity.EntityRenderer;
+import main.entity.EntityUpdater;
 import main.utilities.Position;
 import main.world.worldGeneration.MapGenerator;
 
@@ -13,6 +15,7 @@ public class Map
 {
     private final MapID mapID;
     private MapUpdater mapUpdater;
+    private Maprenderer mapRenderer;
     private Chunk[][] chunks;
     private int tilesPerSide;
 
@@ -25,6 +28,8 @@ public class Map
     {
         this.tilesPerSide = PrefferedMapSize.mapSizeToInteger(prefferedMapSize, mapID);
         this.mapID = mapID;
+        this.mapRenderer = new Maprenderer(this);
+        this.mapUpdater = new MapUpdater(this);
 
         if (!MapManager.getMaps().containsKey(mapID))
         {
@@ -37,6 +42,8 @@ public class Map
 
     private void createChunks(short[][] tileMapIDValues)
     {
+        long startTime = System.currentTimeMillis();
+
         int chunkSize = Chunk.getChunkSize();
         int chunksPerSide = tilesPerSide / chunkSize;
         chunks = new Chunk[chunksPerSide][chunksPerSide];
@@ -62,7 +69,7 @@ public class Map
                             Position centered = Position.center(raw, mapID);
 
                             //TileID id = TileID.fromId(tileMapIDValues[worldX][worldY]);
-                            if (tx == 0 && ty == 0) tiles[tx][ty] = new Tile(centered, TileID.DEFAULT);
+                            tiles[tx][ty] = new Tile(centered, TileID.DEFAULT);
                         }
                     }
                     chunks[chunkX][chunkY] = new Chunk(tiles);
@@ -76,5 +83,7 @@ public class Map
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+        long endTime = System.currentTimeMillis();
+        System.out.println("createChunks dla mapy " + mapID + " zajęło " + (endTime - startTime) + " ms");
     }
 }

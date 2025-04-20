@@ -5,7 +5,8 @@ public enum DrawPriority
 {
     One(1),
     Two(2),
-    Entity(3);
+    Entity(3),
+    Map(4);
 
     public final int value;
 
