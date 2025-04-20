@@ -12,6 +12,8 @@ public class Camera
 
     public CameraUpdater getCameraUpdater() { return cameraUpdater; }
     public static double getScaleFactor() { return scaleFactor; }
+    public static void increaseScaleFactor() {scaleFactor += 0.05f;}
+    public static void decreaseScaleFactor() {scaleFactor -= 0.05f;}
     public Position getPositionToFocus() { return positionToFocus; }
 
     public Camera()

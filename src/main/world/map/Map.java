@@ -42,8 +42,6 @@ public class Map
 
     private void createChunks(short[][] tileMapIDValues)
     {
-        long startTime = System.currentTimeMillis();
-
         int chunkSize = Chunk.getChunkSize();
         int chunksPerSide = tilesPerSide / chunkSize;
         chunks = new Chunk[chunksPerSide][chunksPerSide];
@@ -83,7 +81,5 @@ public class Map
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        long endTime = System.currentTimeMillis();
-        System.out.println("createChunks dla mapy " + mapID + " zajęło " + (endTime - startTime) + " ms");
     }
 }
