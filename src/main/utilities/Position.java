@@ -1,5 +1,7 @@
 package main.utilities;
 
+import main.world.map.*;
+
 import java.util.Objects;
 
 public class Position
@@ -25,10 +27,18 @@ public class Position
         this.y = y;
     }
 
-
-    public Position toWorldPosition(int mapWidth, int mapHeight)
+    public static Position center(Position rawPosition, MapID mapID)
     {
-        return null;
+        PrefferedMapSize prefMapSize = MapManager.getPrefferedMapSize();
+        int mapTiles = PrefferedMapSize.mapSizeToInteger(prefMapSize, mapID);
+
+        int fullPx = mapTiles * Tile.getTileSize();
+        int halfPx = fullPx / 2;
+
+        int centeredX = rawPosition.getX() - halfPx;
+        int centeredY = rawPosition.getY() - halfPx;
+
+        return new Position(centeredX, centeredY);
     }
 
 

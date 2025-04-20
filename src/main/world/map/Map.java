@@ -11,8 +11,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Map
 {
+    private final MapID mapID;
     private MapUpdater mapUpdater;
     private Chunk[][] chunks;
+    private int tilesPerSide;
 
     /**
      *
@@ -21,24 +23,22 @@ public class Map
      */
     public Map(MapID mapID, PrefferedMapSize prefferedMapSize)
     {
+        this.tilesPerSide = PrefferedMapSize.mapSizeToInteger(prefferedMapSize, mapID);
+        this.mapID = mapID;
+
         if (!MapManager.getMaps().containsKey(mapID))
         {
-            int mapSize = PrefferedMapSize.mapSizeToInteger(prefferedMapSize, mapID);
-            short[][] tileMapIDValues = MapGenerator.generateMap(mapSize, mapSize, mapID);
-            createChunks(tileMapIDValues, PrefferedMapSize.mapSizeToInteger(prefferedMapSize, mapID));
+            short[][] tileMapIDValues = MapGenerator.generateMap(tilesPerSide, tilesPerSide, mapID);
+            createChunks(tileMapIDValues);
             MapManager.putMap(mapID, this);
         }
     }
 
-    /**
-     *
-     * @param tileMapIDValues   - IDs of tiles
-     * @param size              - number of tiles per side
-     */
-    private void createChunks(short[][] tileMapIDValues, int size)
+
+    private void createChunks(short[][] tileMapIDValues)
     {
         int chunkSize = Chunk.getChunkSize();
-        int chunksPerSide = size / chunkSize;
+        int chunksPerSide = tilesPerSide / chunkSize;
         chunks = new Chunk[chunksPerSide][chunksPerSide];
 
         int threads = Runtime.getRuntime().availableProcessors();
@@ -57,9 +57,12 @@ public class Map
                         for (int ty = 0; ty < chunkSize; ty++) {
                             int worldX = chunkX * chunkSize + tx;
                             int worldY = chunkY * chunkSize + ty;
-                            Position pos = new Position(worldX * Tile.getTileSize(), worldY * Tile.getTileSize());
+
+                            Position raw = new Position(worldX * Tile.getTileSize(), worldY * Tile.getTileSize());
+                            Position centered = Position.center(raw, mapID);
+
                             //TileID id = TileID.fromId(tileMapIDValues[worldX][worldY]);
-                            if (tx == 0 && ty == 0) tiles[tx][ty] = new Tile(pos, TileID.DEFAULT);
+                            if (tx == 0 && ty == 0) tiles[tx][ty] = new Tile(centered, TileID.DEFAULT);
                         }
                     }
                     chunks[chunkX][chunkY] = new Chunk(tiles);
