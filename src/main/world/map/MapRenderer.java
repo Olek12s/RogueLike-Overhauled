@@ -5,6 +5,7 @@ import main.IDrawable;
 import main.camera.Camera;
 import main.utilities.DrawPriority;
 import main.utilities.Position;
+import main.utilities.sprite.SpriteSheet;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -31,8 +32,12 @@ public class MapRenderer implements IDrawable
 
     private void loadDefaultTileTexture()
     {
-        try {
-            defaultTileTexture = ImageIO.read(new File("resources/DefaultTile.png"));
+        try
+        {
+           // defaultTileTexture = ImageIO.read(new File("resources/DefaultTile.png"));
+            BufferedImage defaultTileTextureSpriteSheett = ImageIO.read(new File("resources/DefaultTile.png"));
+            SpriteSheet defaultTileTextureSpriteSheet = new SpriteSheet(defaultTileTextureSpriteSheett, 64, 64*3);
+            defaultTileTexture = defaultTileTextureSpriteSheet.extractSprite(0, 0);
 
         } catch (IOException | IllegalArgumentException | NullPointerException e) {
             System.err.println("Failed to load default tile texture: " + e.getMessage());
@@ -54,7 +59,6 @@ public class MapRenderer implements IDrawable
                         Position worldPos = tile.getTileWorldPosition();
                         Position screenPos = Camera.toScreenPosition(worldPos);
                         //System.out.println("Drawing tile at world: " + worldPos + " -> screen: " + screenPos);
-
                         g2.drawImage(
                                 defaultTileTexture,
                                 screenPos.getX(), screenPos.getY(),

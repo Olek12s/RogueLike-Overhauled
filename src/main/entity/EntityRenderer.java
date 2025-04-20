@@ -30,6 +30,6 @@ public class EntityRenderer implements IDrawable
         g2.setColor(Color.GREEN);
         Position screenPosition = Camera.toScreenPosition(entity.getWorldPosition());
 
-        g2.fillRect(screenPosition.getX(), screenPosition.getY(), 50, 50);
+        g2.fillRect(screenPosition.getX(), screenPosition.getY(), 64, 64);
     }
 }
