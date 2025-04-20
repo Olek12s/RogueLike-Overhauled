@@ -1,12 +1,8 @@
 package main.world.map;
 
-import main.GameController;
-import main.entity.EntityRenderer;
-import main.entity.EntityUpdater;
 import main.utilities.Position;
 import main.world.worldGeneration.MapGenerator;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -15,9 +11,15 @@ public class Map
 {
     private final MapID mapID;
     private MapUpdater mapUpdater;
-    private Maprenderer mapRenderer;
+    private MapRenderer mapRenderer;
     private Chunk[][] chunks;
     private int tilesPerSide;
+
+    public MapID getMapID() {return mapID;}
+    public MapUpdater getMapUpdater() {return mapUpdater;}
+    public MapRenderer getMapRenderer() {return mapRenderer;}
+    public Chunk[][] getChunks() {return chunks;}
+    public int getTilesPerSide() {return tilesPerSide;}
 
     /**
      *
@@ -28,7 +30,7 @@ public class Map
     {
         this.tilesPerSide = PrefferedMapSize.mapSizeToInteger(prefferedMapSize, mapID);
         this.mapID = mapID;
-        this.mapRenderer = new Maprenderer(this);
+        this.mapRenderer = new MapRenderer(this);
         this.mapUpdater = new MapUpdater(this);
 
         if (!MapManager.getMaps().containsKey(mapID))
