@@ -7,10 +7,13 @@ import main.utilities.Position;
 public class Camera
 {
     private CameraUpdater cameraUpdater;
-    private static double scaleFactor = 1f;
-    private static int renderDistance = 1;              // TODO: implement calculating render dist
+    private static double scaleFactor = 0.3f;
+    private static int renderDistance = 1;
     private static int simulationDistance = 999;        // TODO: implement logic for simulation distance
     private static Position positionToFocus;
+    private static final double MIN_ZOOM = 0.01;
+    private static final double MAX_ZOOM = 2.0;
+    private static final double ZOOM_STEP = 0.03;
 
     public CameraUpdater getCameraUpdater() { return cameraUpdater; }
     public static double getScaleFactor() { return scaleFactor; }
@@ -19,6 +22,7 @@ public class Camera
     public Position getPositionToFocus() { return positionToFocus; }
     public static int getRenderDistance() {return renderDistance;}
     public static int getSimulationDistance() {return simulationDistance;}
+    public static void setRenderDistance(int renderDistance) {Camera.renderDistance = renderDistance;}
 
     public Camera()
     {
@@ -66,4 +70,15 @@ public class Camera
         setPositionToFocus(entity.getWorldPosition(), offsetX, offsetY);
     }
 
+    public static void changeCameraZoom(int scroll)
+    {
+        if (scroll > 0)         // zoom out
+        {
+            scaleFactor = Math.max(MIN_ZOOM, scaleFactor - ZOOM_STEP);
+        }
+        else if (scroll < 0)    // zoom in
+        {
+            scaleFactor = Math.min(MAX_ZOOM, scaleFactor + ZOOM_STEP);
+        }
+    }
 }

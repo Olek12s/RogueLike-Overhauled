@@ -1,8 +1,11 @@
 package main.userInput;
 
+import main.IUpdatable;
+import main.camera.Camera;
+
 import java.awt.event.*;
 
-public class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener
+public class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener, IUpdatable
 {
 
     @Override
@@ -49,6 +52,12 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e)
+    {
+        Camera.changeCameraZoom(e.getWheelRotation());
+    }
+
+    @Override
+    public void update()
     {
 
     }
