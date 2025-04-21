@@ -16,12 +16,10 @@ import java.io.IOException;
 public class MapRenderer implements IDrawable
 {
     private Map map;
-    private static BufferedImage defaultTileTexture;
 
     public MapRenderer(Map map)
     {
         this.map = map;
-        loadDefaultTileTexture();
         GameController.addDrawable(this);
     }
 
@@ -30,41 +28,45 @@ public class MapRenderer implements IDrawable
         return DrawPriority.Map;
     }
 
-    private void loadDefaultTileTexture()
-    {
-        try
-        {
-           // defaultTileTexture = ImageIO.read(new File("resources/DefaultTile.png"));
-            BufferedImage defaultTileTextureSpriteSheett = ImageIO.read(new File("resources/DefaultTile.png"));
-            SpriteSheet defaultTileTextureSpriteSheet = new SpriteSheet(defaultTileTextureSpriteSheett, 64, 64*3);
-            defaultTileTexture = defaultTileTextureSpriteSheet.extractSprite(0, 0);
-
-        } catch (IOException | IllegalArgumentException | NullPointerException e) {
-            System.err.println("Failed to load default tile texture: " + e.getMessage());
-            defaultTileTexture = new BufferedImage(
-                    Tile.getTileSize(), Tile.getTileSize(), BufferedImage.TYPE_INT_ARGB
-            );
-        }
-    }
-
     @Override
     public void draw(Graphics g2) {
         Chunk[][] chunks = map.getChunks();
-        for (Chunk[] chunkRow : chunks) {
-            for (Chunk chunk : chunkRow) {
+        if (chunks == null || chunks.length == 0) return;
+
+        int chunkCountX = chunks.length;
+        int chunkCountY = chunks[0].length;
+        int chunkSize = Chunk.getChunkSize();
+        int tileSize = Tile.getTileSize();
+        Position camPos = GameController.getInstance().getCamera().getPositionToFocus();
+        Chunk cameraChunk = map.getChunk(camPos);
+        int camChunkX = cameraChunk.getxIndex();
+        int camChunkY = cameraChunk.getyIndex();
+
+
+        int renderDistance = Camera.getRenderDistance();
+        int startChunkX = Math.max(0, camChunkX - renderDistance);
+        int startChunkY = Math.max(0, camChunkY - renderDistance);
+        int endChunkX = Math.min(chunkCountX, camChunkX + renderDistance + 1);
+        int endChunkY = Math.min(chunkCountY, camChunkY + renderDistance + 1);
+
+        // draw only chunks within range
+        for (int chunkX = startChunkX; chunkX < endChunkX; chunkX++)
+        {
+            for (int chunkY = startChunkY; chunkY < endChunkY; chunkY++)
+            {
+                Chunk chunk = chunks[chunkX][chunkY];
                 if (chunk == null) continue;
+
                 Tile[][] tiles = chunk.getTiles();
-                for (Tile[] tileRow : tiles) {
-                    for (Tile tile : tileRow) {
+                for (int x = 0; x < chunkSize; x++)
+                {
+                    for (int y = 0; y < chunkSize; y++)
+                    {
+                        Tile tile = tiles[x][y];
                         Position worldPos = tile.getTileWorldPosition();
                         Position screenPos = Camera.toScreenPosition(worldPos);
-                        //System.out.println("Drawing tile at world: " + worldPos + " -> screen: " + screenPos);
-                        g2.drawImage(
-                                defaultTileTexture,
-                                screenPos.getX(), screenPos.getY(),
-                                Tile.getTileSize(), Tile.getTileSize(),
-                                null
-                        );
+                        int drawSize = (int) Math.ceil(tileSize * Camera.getScaleFactor());
+                        g2.drawImage(tile.getSpriteImage(), screenPos.getX(), screenPos.getY(), drawSize, drawSize, null);
                     }
                 }
             }

@@ -14,6 +14,7 @@ public class SpriteSheet
     private static final int SPRITE_OFFSET = 1;
 
     private BufferedImage spriteSheetImage;
+    private Sprite[][] sprites;
     private int textureWidth;
     private int textureHeight;
     private int animationTicks;
@@ -33,6 +34,19 @@ public class SpriteSheet
         this.textureHeight = textureHeight;
         this.animationTicks = countAnimationTicks();
         this.textureVarations = countTextureVariations();
+
+        // Cache all individual sprites
+        sprites = new Sprite[animationTicks][textureVarations];
+        for (int t = 0; t < animationTicks; t++)
+        {
+            for (int v = 0; v < textureVarations; v++)
+            {
+                int startX = SPRITE_OFFSET + t * (textureWidth + SPRITE_PADDING);
+                int startY = SPRITE_OFFSET + v * (textureHeight + SPRITE_PADDING);
+                BufferedImage sub = spriteSheetImage.getSubimage(startX, startY, textureWidth, textureHeight);
+                sprites[t][v] = new Sprite(sub);
+            }
+        }
     }
 
     private int countAnimationTicks()
@@ -95,17 +109,21 @@ public class SpriteSheet
         return false;
     }
 
-    public BufferedImage extractSprite(int tick, int variation)
+    public Sprite extractSprite(int tick, int variation)
     {
-        int startX = SPRITE_OFFSET + tick * (textureWidth + SPRITE_PADDING);
-        int startY = SPRITE_OFFSET + variation * (textureHeight + SPRITE_PADDING);
-        return spriteSheetImage.getSubimage(startX, startY, textureWidth, textureHeight);
+        return sprites[tick][variation];
+    }
+
+    public Sprite extractFirst()
+    {
+        return sprites[0][0];
     }
 
     public static void main(String[] args)
     {
-        String path = "resources/test32x64.png";
-        int texW = 32;
+        //String path = "resources/test32x64.png";
+        String path = "resources/DefaultTile.png";
+        int texW = 64;
         int texH = 64;
 
 
@@ -118,7 +136,7 @@ public class SpriteSheet
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setLayout(new BorderLayout());
 
-                JLabel imgLabel = new JLabel(new ImageIcon(sheet.extractSprite(0, 0)));
+                JLabel imgLabel = new JLabel(new ImageIcon(sheet.extractSprite(0, 0).getImage()));
                 imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
                 frame.add(imgLabel, BorderLayout.CENTER);
 
@@ -135,7 +153,7 @@ public class SpriteSheet
 
                 final int[] current = {0, 0}; // [tick, variation]
                 ActionListener updateImage = e -> {
-                    imgLabel.setIcon(new ImageIcon(sheet.extractSprite(current[0], current[1])));
+                    imgLabel.setIcon(new ImageIcon(sheet.extractSprite(current[0], current[1]).getImage()));
                     prevTick.setEnabled(current[0] > 0);
                     nextTick.setEnabled(current[0] < sheet.getAnimationTicks() - 1);
                     prevVar.setEnabled(current[1] > 0);

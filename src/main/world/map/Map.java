@@ -41,6 +41,32 @@ public class Map
         }
     }
 
+    public Chunk getChunk(int worldX, int worldY)
+    {
+        int chunkPixelSize = Chunk.getChunkSize() * Tile.getTileSize();
+
+        // aligning to the middle of the map
+        int halfMapWidthInPixels = (chunks.length / 2) * chunkPixelSize;
+        int halfMapHeightInPixels = (chunks[0].length / 2) * chunkPixelSize;
+        int adjustedX = worldX + halfMapWidthInPixels;
+        int adjustedY = worldY + halfMapHeightInPixels;
+
+        int chunkX = adjustedX / chunkPixelSize;
+        int chunkY = adjustedY / chunkPixelSize;
+
+        if (adjustedX < 0) chunkX--;
+        if (adjustedY < 0) chunkY--;
+
+        if (chunkX < 0 || chunkX >= chunks.length || chunkY < 0 || chunkY >= chunks[0].length)
+        {
+
+            throw new IndexOutOfBoundsException("Position out of map: (" + worldX + ", " + worldY + ")");
+        }
+        return chunks[chunkX][chunkY];
+    }
+    public Chunk getChunk(Position worldPosition) {return getChunk(worldPosition.getX(), worldPosition.getY());}
+    public Chunk getChunkByIndex(int chunkX, int chunkY) {return chunks[chunkX][chunkY];}
+
 
     private void createChunks(short[][] tileMapIDValues)
     {
@@ -72,7 +98,7 @@ public class Map
                             tiles[tx][ty] = new Tile(centered, TileID.DEFAULT);
                         }
                     }
-                    chunks[chunkX][chunkY] = new Chunk(tiles);
+                    chunks[chunkX][chunkY] = new Chunk(tiles, chunkX, chunkY);
                 });
             }
         }

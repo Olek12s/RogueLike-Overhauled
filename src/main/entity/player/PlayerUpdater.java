@@ -19,9 +19,9 @@ public class PlayerUpdater extends EntityUpdater
 
         Position pos = entity.getWorldPosition();
 
-        if (KeyHandler.isW_PRESSED()) pos.setY(pos.getY() - 1);
-        if (KeyHandler.isA_PRESSED()) pos.setX(pos.getX() - 1);
-        if (KeyHandler.isS_PRESSED()) pos.setY(pos.getY() + 1);
-        if (KeyHandler.isD_PRESSED()) pos.setX(pos.getX() + 1);
+        if (KeyHandler.isW_PRESSED()) pos.setY(pos.getY() - 10);
+        if (KeyHandler.isA_PRESSED()) pos.setX(pos.getX() - 10);
+        if (KeyHandler.isS_PRESSED()) pos.setY(pos.getY() + 10);
+        if (KeyHandler.isD_PRESSED()) pos.setX(pos.getX() + 10);
     }
 }
