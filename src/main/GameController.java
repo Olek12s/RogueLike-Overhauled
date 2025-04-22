@@ -51,14 +51,13 @@ public class GameController extends JPanel implements Runnable
                             //  CLASS INSTANCES      //
                             //                       //
 
+    private static MapManager mapManager;
+    private static TileManager tileManager;
     private static Entity player;
     private static MouseHandler mouseHandler;
     private static KeyHandler keyHandler;
     private static Camera camera;
     private static Console debugConsole;
-    //private static MapGenerator mapGenerator;
-    private static MapManager mapManager;
-    private static TileManager tileManager;
 
 
     private GameController()
@@ -77,12 +76,12 @@ public class GameController extends JPanel implements Runnable
             initializeThread();
             initializeUserInput();
 
+            mapManager = new MapManager();
+            tileManager = new TileManager();
             debugConsole = new Console();
             player = new Player(EntityID.PLAYER);
             camera = new Camera();
             //mapGenerator = new MapGenerator();
-            mapManager = new MapManager();
-            tileManager = new TileManager();
         }
         return instance;
     }

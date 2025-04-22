@@ -11,12 +11,13 @@ import java.util.HashSet;
 public class MapManager
 {
     private static HashMap<MapID, Map> maps;
-    private static MapID currentMap;
+    private static MapID currentMapID;
     private static PrefferedMapSize prefferedMapSize;
     private MapGenerator mapGenerator;
 
     public static PrefferedMapSize getPrefferedMapSize() {return prefferedMapSize;}
-    public static MapID getCurrentMap() {return currentMap;}
+    public static MapID getCurrentMapID() {return currentMapID;}
+    public static Map getCurrentMap() {return getMapByID(currentMapID);}
     public static HashMap<MapID, Map> getMaps() {return maps;}
     public static Map getMapByID(MapID mapID) {return maps.get(mapID);}
 
@@ -37,7 +38,8 @@ public class MapManager
         if (!maps.containsKey(mapIDToChange))
         {
             Map newMap = new Map(mapIDToChange, prefferedMapSize);
+            maps.put(mapIDToChange, newMap);
         }
-        currentMap = mapIDToChange;
+        currentMapID = mapIDToChange;
     }
 }

@@ -3,6 +3,7 @@ package main.entity;
 import main.utilities.Movement;
 import main.utilities.Position;
 import main.utilities.sprite.Sprite;
+import main.world.map.Chunk;
 
 public abstract class Entity
 {
@@ -11,6 +12,7 @@ public abstract class Entity
     private Movement movement;
     private Position worldPosition = new Position(0, 0);
     private EntityID entityID;
+    private Chunk currentChunk;
 
     //Abstracts//
     public abstract void setHitbox();
@@ -34,6 +36,8 @@ public abstract class Entity
     public Position getWorldPosition() {return worldPosition;}
     public EntityID getEntityID() {return entityID;}
     public Sprite getCurrentSprite() {return renderer.getCurrentSprite();}
+    public Chunk getCurrentChunk() {return currentChunk;}
+    public void setCurrentChunk(Chunk chunk) {this.currentChunk = chunk;}
 
     public void setRenderer(EntityRenderer renderer) {this.renderer = renderer;}
     public void setUpdater(EntityUpdater updater) {this.updater = updater;}
