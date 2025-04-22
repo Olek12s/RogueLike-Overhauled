@@ -20,13 +20,10 @@ public class PlayerUpdater extends EntityUpdater
     {
         super.update();
 
-        Position pos = entity.getWorldPosition();
 
-        if (KeyHandler.isW_PRESSED() || KeyHandler.isUP_PRESSED()) pos.setY(pos.getY() - 10);
-        if (KeyHandler.isA_PRESSED() || KeyHandler.isLEFT_PRESSED()) pos.setX(pos.getX() - 10);
-        if (KeyHandler.isS_PRESSED() || KeyHandler.isDOWN_PRESSED()) pos.setY(pos.getY() + 10);
-        if (KeyHandler.isD_PRESSED() || KeyHandler.isRIGHT_PRESSED()) pos.setX(pos.getX() + 10);
+
         updatePlayerDirection();
+        moveTowardsDirection();
     }
 
     private void updatePlayerDirection()

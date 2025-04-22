@@ -21,6 +21,6 @@ public class Player extends Entity
     @Override
     public void setupStatistics()
     {
-
+        getMovement().initMovementSpeed(10);
     }
 }

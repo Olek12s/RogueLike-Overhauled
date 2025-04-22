@@ -47,6 +47,7 @@ public abstract class Entity
     public int getANIMATION_SPEED() {return ANIMATION_SPEED;}
     public void setDirection(Direction direction) {this.movement.setDirection(direction);}
 
+
     public void setRenderer(EntityRenderer renderer) {this.renderer = renderer;}
     public void setUpdater(EntityUpdater updater) {this.updater = updater;}
 

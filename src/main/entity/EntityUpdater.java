@@ -3,6 +3,7 @@ package main.entity;
 import main.GameController;
 import main.IUpdatable;
 import main.utilities.Direction;
+import main.utilities.Movement;
 import main.utilities.sprite.SpriteSheet;
 import main.world.map.Chunk;
 import main.world.map.MapManager;
@@ -38,6 +39,14 @@ public class EntityUpdater implements IUpdatable
             }
             newChunk.addEntity(entity);
             entity.setCurrentChunk(newChunk);
+        }
+    }
+
+    public void moveTowardsDirection()
+    {
+        if (entity.isMoving())
+        {
+            Movement.move(entity);
         }
     }
 
