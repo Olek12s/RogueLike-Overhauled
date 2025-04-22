@@ -124,8 +124,8 @@ public class SpriteSheet
         //String path = "resources/test32x64.png";
         //String path = "resources/DefaultTile.png";
         String path = "resources/MiniSlime.png";
-        int texW = 64;
-        int texH = 64;
+        int texW = 22;
+        int texH = 22;
 
 
         SwingUtilities.invokeLater(() -> {
