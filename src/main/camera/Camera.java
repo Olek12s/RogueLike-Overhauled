@@ -7,7 +7,7 @@ import main.utilities.Position;
 public class Camera
 {
     private CameraUpdater cameraUpdater;
-    private static double scaleFactor = 0.3f;
+    private static double scaleFactor = 1f;
     private static int renderDistance = 1;
     private static int simulationDistance = 999;        // TODO: implement logic for simulation distance
     private static Position positionToFocus;

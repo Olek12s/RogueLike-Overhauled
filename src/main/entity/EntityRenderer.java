@@ -23,6 +23,12 @@ public class EntityRenderer implements IDrawable
     private int spriteVariation;
     private int animationTick;
 
+    public int getSpriteVariation() {return spriteVariation;}
+    public void setSpriteVariation(int spriteVariation) {this.spriteVariation = spriteVariation;}
+    public int getAnimationTick() {return animationTick;}
+    public void setAnimationTick(int animationTick) {this.animationTick = animationTick;}
+    public static SpriteSheet getSpriteSheetByID(EntityID id) {return entitySpriteSheets.get(id);}
+
     public Sprite getCurrentSprite()
     {
         return entitySpriteSheets.get(entity.getEntityID()).extractSprite(animationTick, spriteVariation);
@@ -45,8 +51,8 @@ public class EntityRenderer implements IDrawable
 
         try
         {
-            entitySpriteSheets.put(EntityID.PLAYER, new SpriteSheet(ImageIO.read(new File("resources/Player.png")), 28, 28));
-            entitySpriteSheets.put(EntityID.MINI_SLIME, new SpriteSheet(ImageIO.read(new File("resources/MiniSlime.png")), 28, 28));
+            entitySpriteSheets.put(EntityID.PLAYER, new SpriteSheet(ImageIO.read(new File("resources/Player.png")), 22, 22));
+            entitySpriteSheets.put(EntityID.MINI_SLIME, new SpriteSheet(ImageIO.read(new File("resources/MiniSlime.png")), 22, 22));
         }
         catch (IOException e)
         {

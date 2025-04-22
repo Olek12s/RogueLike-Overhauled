@@ -9,8 +9,6 @@ public class Player extends Entity
     public Player(EntityID entityID)
     {
         super(entityID);
-
-        setRenderer(new EntityRenderer(this));
         setUpdater(new PlayerUpdater(this));
     }
 
