@@ -51,8 +51,8 @@ public class EntityRenderer implements IDrawable
 
         try
         {
-            entitySpriteSheets.put(EntityID.PLAYER, new SpriteSheet(ImageIO.read(new File("resources/Player.png")), 22, 22));
-            entitySpriteSheets.put(EntityID.MINI_SLIME, new SpriteSheet(ImageIO.read(new File("resources/MiniSlime.png")), 22, 22));
+            entitySpriteSheets.put(EntityID.PLAYER, new SpriteSheet(ImageIO.read(new File("resources/txt/entity/Player.png")), 22, 22));
+            entitySpriteSheets.put(EntityID.MINI_SLIME, new SpriteSheet(ImageIO.read(new File("resources/txt/entity/MiniSlime.png")), 22, 22));
         }
         catch (IOException e)
         {
