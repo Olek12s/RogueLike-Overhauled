@@ -1,17 +1,28 @@
 package main.entity.player;
 
 import main.entity.Entity;
+import main.entity.EntityID;
 import main.entity.EntityRenderer;
 
 public class Player extends Entity
 {
-
-
-    public Player()
+    public Player(EntityID entityID)
     {
-        super();
+        super(entityID);
 
-        renderer = new EntityRenderer(this);
-        updater = new PlayerUpdater(this);
+        setRenderer(new EntityRenderer(this));
+        setUpdater(new PlayerUpdater(this));
+    }
+
+    @Override
+    public void setHitbox()
+    {
+
+    }
+
+    @Override
+    public void setupStatistics()
+    {
+
     }
 }

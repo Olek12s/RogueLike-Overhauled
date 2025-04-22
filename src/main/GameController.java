@@ -3,6 +3,7 @@ package main;
 import main.camera.Camera;
 import main.debug.Console;
 import main.entity.Entity;
+import main.entity.EntityID;
 import main.entity.player.Player;
 import main.userInput.KeyHandler;
 import main.userInput.MouseHandler;
@@ -50,11 +51,11 @@ public class GameController extends JPanel implements Runnable
                             //  CLASS INSTANCES      //
                             //                       //
 
-    private static Console debugConsole;
     private static Entity player;
     private static MouseHandler mouseHandler;
     private static KeyHandler keyHandler;
     private static Camera camera;
+    private static Console debugConsole;
     //private static MapGenerator mapGenerator;
     private static MapManager mapManager;
     private static TileManager tileManager;
@@ -77,7 +78,7 @@ public class GameController extends JPanel implements Runnable
             initializeUserInput();
 
             debugConsole = new Console();
-            player = new Player();
+            player = new Player(EntityID.PLAYER);
             camera = new Camera();
             //mapGenerator = new MapGenerator();
             mapManager = new MapManager();

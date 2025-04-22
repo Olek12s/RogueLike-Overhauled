@@ -2,31 +2,41 @@ package main.entity;
 
 import main.utilities.Movement;
 import main.utilities.Position;
+import main.utilities.sprite.Sprite;
 
-public class Entity
+public abstract class Entity
 {
-    protected EntityRenderer renderer;
-    protected EntityUpdater updater;
+    private EntityRenderer renderer;
+    private EntityUpdater updater;
+    private Movement movement;
+    private Position worldPosition = new Position(0, 0);
+    private EntityID entityID;
+
+    //Abstracts//
+    public abstract void setHitbox();
+    public abstract void setupStatistics();
+    //Abstracts//
 
 
-    protected Movement movement;
-    protected Position worldPosition = new Position(0, 0);
 
-    //temp
-    public int getWidth() {return 25;}
-    public int getHeight() {return 25;}
-    //temp
-
-    public Entity()
+    public Entity(EntityID entityID)
     {
         this.renderer = new EntityRenderer(this);
         this.updater = new EntityUpdater(this);
+        this.entityID = entityID;
+        setHitbox();
+        setupStatistics();
     }
 
     public EntityRenderer getRenderer() {return renderer;}
     public EntityUpdater getUpdater() {return updater;}
     public Movement getMovement() {return movement;}
     public Position getWorldPosition() {return worldPosition;}
+    public EntityID getEntityID() {return entityID;}
+    public Sprite getCurrentSprite() {return renderer.getCurrentSprite();}
+
+    public void setRenderer(EntityRenderer renderer) {this.renderer = renderer;}
+    public void setUpdater(EntityUpdater updater) {this.updater = updater;}
 
     public void setWorldPosition(Position worldPosition) {
         this.worldPosition = worldPosition;

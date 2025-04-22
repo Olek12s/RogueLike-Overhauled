@@ -1,6 +1,5 @@
 package main.world.map;
 
-import main.utilities.sprite.Sprite;
 import main.utilities.sprite.SpriteSheet;
 
 import javax.imageio.ImageIO;
@@ -16,10 +15,10 @@ public class TileManager
     public TileManager()
     {
         tileSpriteSheets = new HashMap<>();
-        loadTiles();
+        loadTextures();
     }
 
-    private void loadTiles()
+    private void loadTextures()
     {
         try
         {

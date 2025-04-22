@@ -60,8 +60,8 @@ public class Camera
 
     public void setPositionToFocus(Entity entity)
     {
-        int offsetX = entity.getWidth() / 2;
-        int offsetY = entity.getHeight() / 2;
+        int offsetX = entity.getCurrentSprite().resolutionX/2;
+        int offsetY = entity.getCurrentSprite().resolutionY/2;
         setPositionToFocus(entity.getWorldPosition(), offsetX, offsetY);
     }
 
