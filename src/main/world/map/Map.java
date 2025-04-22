@@ -94,8 +94,9 @@ public class Map
                             Position raw = new Position(worldX * Tile.getTileSize(), worldY * Tile.getTileSize());
                             Position centered = Position.center(raw, mapID);
 
-                            //TileID id = TileID.fromId(tileMapIDValues[worldX][worldY]);
-                            tiles[tx][ty] = new Tile(centered, TileID.DEFAULT);
+                            TileID id = TileID.fromId(tileMapIDValues[worldX][worldY]);
+                            //tiles[tx][ty] = new Tile(centered, TileID.DEFAULT);
+                            tiles[tx][ty] = new Tile(centered, id);
                         }
                     }
                     chunks[chunkX][chunkY] = new Chunk(tiles, chunkX, chunkY);

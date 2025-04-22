@@ -2,7 +2,13 @@ package main.world.map;
 
 public enum TileID
 {
-    DEFAULT(0);
+    DEFAULT(0),
+    DIRT(1),
+    GRASS(2),
+    ROCK(3),
+    SAND(4),
+    STONE(5),
+    WATER(6);
 
     private final int id;
 

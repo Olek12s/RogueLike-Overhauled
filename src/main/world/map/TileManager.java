@@ -23,12 +23,12 @@ public class TileManager
         try
         {
             tileSpriteSheets.put(TileID.DEFAULT, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/DefaultTile.png")), 64, 64));
-            tileSpriteSheets.put(TileID.DEFAULT, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Dirt.png")), 64, 64));
-            tileSpriteSheets.put(TileID.DEFAULT, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Grass.png")), 64, 64));
-            tileSpriteSheets.put(TileID.DEFAULT, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Rock.png")), 64, 64));
-            tileSpriteSheets.put(TileID.DEFAULT, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Sand.png")), 64, 64));
-            tileSpriteSheets.put(TileID.DEFAULT, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Stone.png")), 64, 64));
-            tileSpriteSheets.put(TileID.DEFAULT, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Water.png")), 64, 64));
+            tileSpriteSheets.put(TileID.DIRT, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Dirt.png")), 64, 64));
+            tileSpriteSheets.put(TileID.GRASS, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Grass.png")), 64, 64));
+            tileSpriteSheets.put(TileID.ROCK, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Rock.png")), 64, 64));
+            tileSpriteSheets.put(TileID.SAND, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Sand.png")), 64, 64));
+            tileSpriteSheets.put(TileID.STONE, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Stone.png")), 64, 64));
+            tileSpriteSheets.put(TileID.WATER, new SpriteSheet(ImageIO.read(new File("resources/txt/tile/Water.png")), 64, 64));
         }
         catch (IOException e)
         {

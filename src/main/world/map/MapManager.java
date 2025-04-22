@@ -24,7 +24,7 @@ public class MapManager
     public MapManager()
     {
         maps = new HashMap<>();
-        prefferedMapSize = PrefferedMapSize.MEDIUM;
+        prefferedMapSize = PrefferedMapSize.SMALL;
         changeCurrentMap(MapID.SURFACE);
     }
 

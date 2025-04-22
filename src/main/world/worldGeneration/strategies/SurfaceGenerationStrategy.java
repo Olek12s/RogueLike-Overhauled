@@ -1,5 +1,6 @@
 package main.world.worldGeneration.strategies;
 
+import main.world.map.TileID;
 import main.world.worldGeneration.IMapGenerationStrategy;
 import main.world.worldGeneration.MapGenerator;
 import main.world.worldGeneration.TerrainGenerator;
@@ -49,11 +50,20 @@ public class SurfaceGenerationStrategy implements IMapGenerationStrategy
                 val = Math.max(val, val2);
                 val = val * factor*0.75f;
 
+                /*
                 if (val <= 35) val = 35;
                 else if (val > 35 && val <= 40) val = 70;
                 else if (val > 40 && val <= 90) val = 150;
                 else if (val > 90 && val <= 255) val = 255;
+                */
+                if (val <= 35) val = TileID.WATER.getId();
+                else if (val > 35 && val <= 40) val = TileID.SAND.getId();
+                else if (val > 40 && val <= 90) val = TileID.GRASS.getId();
+                else if (val > 90 && val <= 255) val = TileID.STONE.getId();
+
+
                 mapValues[x][y] = (short)val;
+
             }
         }
     }
