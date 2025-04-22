@@ -3,6 +3,7 @@ package main.entity.player;
 import main.entity.Entity;
 import main.entity.EntityID;
 import main.entity.EntityRenderer;
+import main.utilities.Hitbox;
 
 public class Player extends Entity
 {
@@ -15,7 +16,7 @@ public class Player extends Entity
     @Override
     public void setHitbox()
     {
-
+        setHitbox(new Hitbox(getWorldPosition(), 16, 16));
     }
 
     @Override

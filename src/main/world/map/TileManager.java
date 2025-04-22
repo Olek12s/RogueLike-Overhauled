@@ -18,6 +18,15 @@ public class TileManager
         loadTextures();
     }
 
+    public static boolean isCollidable(TileID tileID)
+    {
+        return switch (tileID)
+        {
+            case ROCK, STONE -> true;
+            default -> false;
+        };
+    }
+
     private void loadTextures()
     {
         try

@@ -3,6 +3,7 @@ package main.entity;
 import main.utilities.DrawPriority;
 import main.GameController;
 import main.IDrawable;
+import main.utilities.Hitbox;
 import main.utilities.Position;
 import main.camera.Camera;
 import main.utilities.sprite.Sprite;
@@ -60,6 +61,21 @@ public class EntityRenderer implements IDrawable
         }
     }
 
+    private void drawHitbox(Graphics g2, Hitbox hitbox, Color color)
+    {
+        Rectangle rect = hitbox.getHitboxRect();
+        // Convert world position + hitbox offset to screen coordinates
+        int worldX = rect.x;
+        int worldY = rect.y;
+        Position topLeft = Camera.toScreenPosition(worldX, worldY);
+        double scale = Camera.getScaleFactor();
+        int w = (int) Math.ceil(rect.width * scale);
+        int h = (int) Math.ceil(rect.height * scale);
+
+        g2.setColor(color);
+        g2.drawRect(topLeft.getX(), topLeft.getY(), w, h);
+    }
+
 
     @Override
     public DrawPriority getDrawPriority()
@@ -78,5 +94,6 @@ public class EntityRenderer implements IDrawable
         int drawSizeY = (int) Math.ceil(sprite.resolutionY * Camera.getScaleFactor());
 
         g2.drawImage(image, screenPosition.getX(), screenPosition.getY(), drawSizeX, drawSizeY, null);
+        drawHitbox(g2, entity.getHitbox(), Color.ORANGE);
     }
 }

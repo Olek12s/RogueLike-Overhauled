@@ -1,6 +1,7 @@
 package main.entity;
 
 import main.utilities.Direction;
+import main.utilities.Hitbox;
 import main.utilities.Movement;
 import main.utilities.Position;
 import main.utilities.sprite.Sprite;
@@ -16,6 +17,7 @@ public abstract class Entity
     private EntityID entityID;
     private Chunk currentChunk;
     private boolean isMoving;
+    private Hitbox hitbox;
 
     //Abstracts//
     public abstract void setHitbox();
@@ -47,6 +49,21 @@ public abstract class Entity
     public int getANIMATION_SPEED() {return ANIMATION_SPEED;}
     public void setDirection(Direction direction) {this.movement.setDirection(direction);}
 
+    public void setMovement(Movement movement) {
+        this.movement = movement;
+    }
+
+    public void setEntityID(EntityID entityID) {
+        this.entityID = entityID;
+    }
+
+    public Hitbox getHitbox() {
+        return hitbox;
+    }
+
+    public void setHitbox(Hitbox hitbox) {
+        this.hitbox = hitbox;
+    }
 
     public void setRenderer(EntityRenderer renderer) {this.renderer = renderer;}
     public void setUpdater(EntityUpdater updater) {this.updater = updater;}

@@ -23,6 +23,7 @@ public class Tile
     }
     public Sprite getSprite() {return TileManager.getSpriteSheetByID(this.ID).extractFirst();}
     public BufferedImage getSpriteImage() {return TileManager.getSpriteSheetByID(this.ID).extractFirst().getImage();}
+    public boolean isCollidable() {return TileManager.isCollidable(ID);}
 
     public Tile(Position tileWorldPosition, TileID tileID)
     {
