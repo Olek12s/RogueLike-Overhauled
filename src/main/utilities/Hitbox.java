@@ -10,25 +10,29 @@ public class Hitbox
     private Rectangle hitboxRect;
     private Position worldPosition;
 
-    public Rectangle getHitboxRect() {return hitboxRect;}
-    public Position getWorldPosition() {return worldPosition;}
-    public void setWorldPosition(Position worldPosition)
+    public Hitbox(Position worldPosition, int width, int height)
     {
         this.worldPosition = worldPosition;
-        this.hitboxRect.x = worldPosition.getX();
-        this.hitboxRect.y = worldPosition.getY();
+        hitboxRect = new Rectangle(0, 0, width, height);
     }
-    public void setHitboxRect(Rectangle hitboxRect) {this.hitboxRect = hitboxRect;}
-    public int getWidth() {return hitboxRect.width;}
-    public void setWidth(int width)
+
+    public Hitbox(Position worldPosition, Sprite sprite, int hitboxWidth, int hitboxHeight)
     {
-        this.hitboxRect.setSize(width, hitboxRect.height);
+        this.worldPosition = worldPosition;
+        int offsetX = (sprite.resolutionX - hitboxWidth) / 2;
+        int offsetY = (sprite.resolutionY - hitboxHeight) / 2;
+        this.hitboxRect = new Rectangle(offsetX, offsetY, hitboxWidth, hitboxHeight);
     }
-    public int getHeight() {return hitboxRect.height;}
-    public void setHeight(int height)
-    {
-        this.hitboxRect.setSize(hitboxRect.width, height);
+
+    public Rectangle getHitboxRect() {
+        return new Rectangle(
+                worldPosition.getX() + hitboxRect.x,
+                worldPosition.getY() + hitboxRect.y,
+                hitboxRect.width,
+                hitboxRect.height
+        );
     }
+
     public Position getCenterWorldPosition()
     {
         int centerX = worldPosition.getX() + (hitboxRect.width/2);
@@ -39,40 +43,7 @@ public class Hitbox
         return centerPosition;
     }
 
-    public double getDiagonalLength()
-    {
-        int width = hitboxRect.width;
-        int height = hitboxRect.height;
-        return Math.sqrt(width * width + height * height);
-    }
 
-    public Hitbox(Position worldPosition, int width, int height)
-    {
-        hitboxRect = new Rectangle(worldPosition.getX(), worldPosition.getY(), width, height);
-        this.worldPosition = worldPosition;
-    }
-
-    public void centerPositionToEntity(Entity entity)
-    {
-
-        int entityX = entity.getWorldPosition().getX();
-        int entityY = entity.getWorldPosition().getY();
-
-        Sprite currentSprite = entity.getCurrentSprite();
-        float spriteWidth = currentSprite.resolutionX;
-        float spriteHeight = currentSprite.resolutionY;
-
-
-        int spriteCenterX = entityX + (int)(spriteWidth / 2);
-        int spriteCenterY = entityY + (int)(spriteHeight / 2);
-
-        int x = spriteCenterX - (int)(hitboxRect.getWidth() / 2);
-        int y = spriteCenterY - (int)(hitboxRect.getHeight() / 2);
-        hitboxRect.x = x;
-        hitboxRect.y = y;
-        worldPosition.setX(x);
-        worldPosition.setY(y);
-    }
 
     public boolean isInsideHitbox(Position point)
     {

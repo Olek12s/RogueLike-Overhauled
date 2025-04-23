@@ -64,16 +64,13 @@ public class EntityRenderer implements IDrawable
     private void drawHitbox(Graphics g2, Hitbox hitbox, Color color)
     {
         Rectangle rect = hitbox.getHitboxRect();
-        // Convert world position + hitbox offset to screen coordinates
-        int worldX = rect.x;
-        int worldY = rect.y;
-        Position topLeft = Camera.toScreenPosition(worldX, worldY);
+        Position screenTopLeft = Camera.toScreenPosition(rect.x, rect.y);
         double scale = Camera.getScaleFactor();
         int w = (int) Math.ceil(rect.width * scale);
         int h = (int) Math.ceil(rect.height * scale);
 
         g2.setColor(color);
-        g2.drawRect(topLeft.getX(), topLeft.getY(), w, h);
+        g2.drawRect(screenTopLeft.getX(), screenTopLeft.getY(), w, h);
     }
 
 

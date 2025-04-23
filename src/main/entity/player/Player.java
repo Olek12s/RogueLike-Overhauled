@@ -16,7 +16,8 @@ public class Player extends Entity
     @Override
     public void setHitbox()
     {
-        setHitbox(new Hitbox(getWorldPosition(), 16, 16));
+        Hitbox h = new Hitbox(this.getWorldPosition(), this.getCurrentSprite(), 16, 16);
+        setHitbox(h);
     }
 
     @Override

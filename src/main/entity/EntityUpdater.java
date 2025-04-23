@@ -51,7 +51,6 @@ public class EntityUpdater implements IUpdatable
     }
 
 
-
     public void updateCurrentSprite()
     {
         SpriteSheet sheet = EntityRenderer.getSpriteSheetByID(entity.getEntityID());

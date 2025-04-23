@@ -22,50 +22,43 @@ public class Movement
 
     public static void move(Entity entity)
     {
-        Position previousPosition = entity.getWorldPosition();
-        int newX = previousPosition.getX();
-        int newY = previousPosition.getY();
+        Position pos = entity.getWorldPosition();
         int speed = entity.getMovement().getCurrentMovementSpeed();
-        Direction direction = entity.getMovement().getDirection();
-
+        Direction dir = entity.getMovement().getDirection();
         int diagSpeed = Math.max(1, (int)Math.round(speed / Math.sqrt(2)));
-        if (direction != null)
+
+        int dx = 0, dy = 0;
+        if (dir != null)
         {
-            switch (direction)
+            switch (dir)
             {
-                case UP -> newY -= speed;
-                case DOWN -> newY += speed;
-                case LEFT -> newX -= speed;
-                case RIGHT -> newX += speed;
-                case UP_LEFT ->
+                case UP         -> dy = -speed;
+                case DOWN       -> dy =  speed;
+                case LEFT       -> dx = -speed;
+                case RIGHT      -> dx =  speed;
+                case UP_LEFT    ->
                 {
-                    newX -= diagSpeed;
-                    newY -= diagSpeed;
+                    dx = -diagSpeed;
+                    dy = -diagSpeed;
                 }
-                case UP_RIGHT ->
+                case UP_RIGHT   ->
                 {
-                    newX += diagSpeed;
-                    newY -= diagSpeed;
+                    dx =  diagSpeed;
+                    dy = -diagSpeed;
                 }
-                case DOWN_LEFT ->
+                case DOWN_LEFT  ->
                 {
-                    newX -= diagSpeed;
-                    newY += diagSpeed;
+                    dx = -diagSpeed;
+                    dy =  diagSpeed;
                 }
                 case DOWN_RIGHT ->
                 {
-                    newX += diagSpeed;
-                    newY += diagSpeed;
-                }
-                default ->
-                {
-                    // no movement
+                    dx =  diagSpeed;
+                    dy =  diagSpeed;
                 }
             }
+            pos.setX(pos.getX() + dx);
+            pos.setY(pos.getY() + dy);
         }
-
-        Position expectedPosition = new Position(newX, newY);
-        entity.setWorldPosition(expectedPosition);
-        System.out.println(entity.getMovement().getCurrentMovementSpeed());
     }
 }
