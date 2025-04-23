@@ -7,60 +7,74 @@ import java.awt.*;
 
 public class Hitbox
 {
-    private Rectangle hitboxRect;
     private Position worldPosition;
+    private int width;
+    private int height;
+    private int offsetX;
+    private int offsetY;
+
+    public Position getWorldPosition() {
+        return new Position(
+                worldPosition.getX() + offsetX,
+                worldPosition.getY() + offsetY
+        );
+    }
+    public int getWidth() {return width;}
+    public int getHeight() {return height;}
+    public Rectangle getHitboxRect() {
+        Position topLeft = getWorldPosition();
+        return new Rectangle(
+                topLeft.getX(),
+                topLeft.getY(),
+                width,
+                height
+        );
+    }
 
     public Hitbox(Position worldPosition, int width, int height)
     {
         this.worldPosition = worldPosition;
-        hitboxRect = new Rectangle(0, 0, width, height);
+        this.width = width;
+        this.height = height;
     }
 
     public Hitbox(Position worldPosition, Sprite sprite, int hitboxWidth, int hitboxHeight)
     {
+        offsetX = (sprite.resolutionX - hitboxWidth) / 2;
+        offsetY = (sprite.resolutionY - hitboxHeight) / 2;
         this.worldPosition = worldPosition;
-        int offsetX = (sprite.resolutionX - hitboxWidth) / 2;
-        int offsetY = (sprite.resolutionY - hitboxHeight) / 2;
-        this.hitboxRect = new Rectangle(offsetX, offsetY, hitboxWidth, hitboxHeight);
-    }
-
-    public Rectangle getHitboxRect() {
-        return new Rectangle(
-                worldPosition.getX() + hitboxRect.x,
-                worldPosition.getY() + hitboxRect.y,
-                hitboxRect.width,
-                hitboxRect.height
-        );
-    }
-
-    public Position getCenterWorldPosition()
-    {
-        int centerX = worldPosition.getX() + (hitboxRect.width/2);
-        int centerY = worldPosition.getY() + (hitboxRect.height/2);
-
-        Position centerPosition = new Position(centerX, centerY);
-
-        return centerPosition;
+        this.width = hitboxWidth;
+        this.height = hitboxHeight;
     }
 
 
 
-    public boolean isInsideHitbox(Position point)
-    {
-        Position hitboxCenter = getCenterWorldPosition();
-        int halfWidth = hitboxRect.width/2;
-        int halfHeight = hitboxRect.height/2;
+    public Position getCenterWorldPosition() {
+        int centerX = worldPosition.getX() + width / 2;
+        int centerY = worldPosition.getY() + height / 2;
+        return new Position(centerX, centerY);
+    }
 
-        return point.getX() >= hitboxCenter.getX() - halfWidth &&
-                point.getX() <= hitboxCenter.getX() + halfWidth &&
-                point.getY() >= hitboxCenter.getY() - halfHeight &&
-                point.getY() <= hitboxCenter.getY() + halfHeight;
+
+
+    public boolean isInsideHitbox(Position point) {
+        Position center = getCenterWorldPosition();
+        int halfW = width / 2;
+        int halfH = height / 2;
+        return point.getX() >= center.getX() - halfW &&
+                point.getX() <= center.getX() + halfW &&
+                point.getY() >= center.getY() - halfH &&
+                point.getY() <= center.getY() + halfH;
     }
 
 
     @Override
     public String toString()
     {
-        return "[" +  hitboxRect.getBounds().x + " " + hitboxRect.getBounds().y + "] [" + hitboxRect.getWidth() + ", " + hitboxRect.getHeight() + "]";
+        return String.format(
+                "Hitbox[pos=(%d,%d), size=(%d×%d)]",
+                worldPosition.getX(), worldPosition.getY(),
+                width, height
+        );
     }
 }
