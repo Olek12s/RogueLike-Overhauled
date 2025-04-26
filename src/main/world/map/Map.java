@@ -111,4 +111,21 @@ public class Map
             Thread.currentThread().interrupt();
         }
     }
+
+    public Tile getTile(int worldX, int worldY)
+    {
+        Chunk chunk = getChunk(worldX, worldY);
+        Position chunkOrigin = chunk.getChunkWorldPosition();
+
+        int localX = (worldX - chunkOrigin.getX()) / Tile.getTileSize();
+        int localY = (worldY - chunkOrigin.getY()) / Tile.getTileSize();
+
+        if (localX < 0 || localX >= Chunk.getChunkSize() || localY < 0 || localY >= Chunk.getChunkSize())
+        {
+            throw new IndexOutOfBoundsException("Local tile coords out of bounds: (" + localX + ", " + localY + ")");
+        }
+        return chunk.getTiles()[localX][localY];
+    }
+
+    public Tile getTile(Position position) {return getTile(position.getX(), position.getY());}
 }

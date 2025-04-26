@@ -28,12 +28,20 @@ public class Console implements IUpdatable
 
     private void cyclicPrint()
     {
-        long updateTime = GameController.getInstance().getUpdateTime();
-        long renderTime = GameController.getInstance().getRenderTime();
-        //Position playerPosition = GameController.getPlayer().getWorldPosition();
+        try
+        {
+            long updateTime = GameController.getInstance().getUpdateTime();
+            long renderTime = GameController.getInstance().getRenderTime();
+            Position playerPosition = GameController.getPlayer().getWorldPosition();
+            Position hitboxPosition = GameController.getPlayer().getHitbox().getWorldPosition();
 
-        System.out.print("Update time: " + updateTime / 1_000_000.0 + " ms | Render time: " + renderTime / 1_000_000.0 + " ms | ");
-        //System.out.print("World Position: " + playerPosition + " | ");
-        System.out.println("Render: " + Camera.getRenderDistance());
+            System.out.print("Update time: " + updateTime / 1_000_000.0 + " ms | Render time: " + renderTime / 1_000_000.0 + " ms | ");
+            System.out.print("World Position: " + playerPosition + " | ");
+            System.out.println("Hitbox position: " + hitboxPosition);
+            System.out.println("Render: " + Camera.getRenderDistance());
+        }
+        finally {
+
+        }
     }
 }

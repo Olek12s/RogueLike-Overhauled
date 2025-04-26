@@ -31,4 +31,10 @@ public class Tile
         this.tileWorldPosition = tileWorldPosition;
         this.health = TileManager.getHealthByID(ID);
     }
+
+    @Override
+    public String toString()
+    {
+        return ID.toString();
+    }
 }

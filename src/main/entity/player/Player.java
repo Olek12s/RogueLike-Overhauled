@@ -4,6 +4,7 @@ import main.entity.Entity;
 import main.entity.EntityID;
 import main.entity.EntityRenderer;
 import main.utilities.Hitbox;
+import main.utilities.Position;
 
 public class Player extends Entity
 {
@@ -11,6 +12,7 @@ public class Player extends Entity
     {
         super(entityID);
         setUpdater(new PlayerUpdater(this));
+        this.getWorldPosition().setXY(1200, 120);
     }
 
     @Override
@@ -23,6 +25,6 @@ public class Player extends Entity
     @Override
     public void setupStatistics()
     {
-        getMovement().initMovementSpeed(10);
+        getMovement().initMovementSpeed(4);
     }
 }

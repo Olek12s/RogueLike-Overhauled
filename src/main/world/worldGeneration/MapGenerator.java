@@ -6,7 +6,8 @@ import main.world.worldGeneration.strategies.SurfaceGenerationStrategy;
 public class MapGenerator
 {
     //private IMapGenerationStrategy generationStrategy;
-    private static long seed = System.currentTimeMillis();
+    //private static long seed = System.currentTimeMillis();
+    private static long seed = 17;
     public static long getSeed() {return seed;}
     public static void setSeed(long seed) {MapGenerator.seed = seed;}
     //public void setSeed(long seed) {this.seed = seed;}

@@ -2,6 +2,7 @@ package main.entity;
 
 import main.GameController;
 import main.IUpdatable;
+import main.utilities.Collisions;
 import main.utilities.Direction;
 import main.utilities.Movement;
 import main.utilities.sprite.SpriteSheet;
@@ -12,6 +13,7 @@ public class EntityUpdater implements IUpdatable
 {
     protected final Entity entity;
     private int spriteCounter;
+    private boolean wasMoving = false;
 
     public EntityUpdater(Entity entity)
     {
@@ -46,6 +48,7 @@ public class EntityUpdater implements IUpdatable
     {
         if (entity.isMoving())
         {
+            Collisions.checkCollisionsWithWalls(entity);
             Movement.move(entity);
         }
     }
@@ -57,10 +60,19 @@ public class EntityUpdater implements IUpdatable
         int totalTicks = sheet.getAnimationTicks();
         int speed = entity.getANIMATION_SPEED();
         Direction dir = entity.getMovement().getDirection();
+        boolean isCurrentlyMoving = entity.isMoving() && dir != null;
 
-        if (entity.isMoving() && dir != null)
+        if (isCurrentlyMoving)
         {
-            spriteCounter = (spriteCounter + 1) % (totalTicks * speed);
+            if (!wasMoving)
+            {
+                spriteCounter = speed;
+            }
+            else
+            {
+                spriteCounter = (spriteCounter + 1) % (totalTicks * speed);
+            }
+
             int tick = spriteCounter / speed;
             tick = Math.min(tick, totalTicks - 1);
             int variation = Direction.directionToVariation(dir);
@@ -70,17 +82,10 @@ public class EntityUpdater implements IUpdatable
         else
         {
             spriteCounter = 0;
-            int variation;
-            if (entity.getMovement().getDirection() != null)
-            {
-                variation = Direction.directionToVariation(entity.getMovement().getDirection());
-            }
-            else
-            {
-                variation = 0;
-            }
+            int variation = (dir != null) ? Direction.directionToVariation(dir) : 0;
             entity.getRenderer().setAnimationTick(0);
             entity.getRenderer().setSpriteVariation(variation);
         }
+        wasMoving = isCurrentlyMoving;
     }
 }

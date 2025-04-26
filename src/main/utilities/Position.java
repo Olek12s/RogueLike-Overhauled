@@ -26,6 +26,11 @@ public class Position
     {
         this.y = y;
     }
+    public void setXY(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
 
     public static Position center(Position rawPosition, MapID mapID)
     {
@@ -39,6 +44,11 @@ public class Position
         int centeredY = rawPosition.getY() - halfPx;
 
         return new Position(centeredX, centeredY);
+    }
+
+    public Position copy()
+    {
+        return new Position(this.x, this.y);
     }
 
 
