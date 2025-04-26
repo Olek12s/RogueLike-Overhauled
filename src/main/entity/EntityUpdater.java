@@ -2,9 +2,7 @@ package main.entity;
 
 import main.GameController;
 import main.IUpdatable;
-import main.utilities.Collisions;
-import main.utilities.Direction;
-import main.utilities.Movement;
+import main.utilities.*;
 import main.utilities.sprite.SpriteSheet;
 import main.world.map.Chunk;
 import main.world.map.MapManager;
@@ -26,6 +24,7 @@ public class EntityUpdater implements IUpdatable
     {
         updateChunkAssociation();
         updateCurrentSprite();
+        moveTowardsDirection();
     }
 
     public void updateChunkAssociation()
@@ -44,14 +43,31 @@ public class EntityUpdater implements IUpdatable
         }
     }
 
-    public void moveTowardsDirection()
-    {
-        if (entity.isMoving())
-        {
-            Collisions.checkCollisionsWithWalls(entity);
+    public void moveTowardsDirection() {
+        if (!entity.isMoving() || entity.getMovement().getDirection() == null) return;
+        Hitbox hitbox = entity.getHitbox();
+        Movement mov = entity.getMovement();
+        int speed = mov.getCurrentMovementSpeed();
+        int diag = Math.max(1, (int)Math.round(speed/Math.sqrt(2)));
+        int dx = 0, dy = 0;
+        switch (mov.getDirection()) {
+            case UP        -> dy = -speed;
+            case DOWN      -> dy =  speed;
+            case LEFT      -> dx = -speed;
+            case RIGHT     -> dx =  speed;
+            case UP_LEFT   -> { dx = -diag; dy = -diag; }
+            case UP_RIGHT  -> { dx =  diag; dy = -diag; }
+            case DOWN_LEFT -> { dx = -diag; dy =  diag; }
+            case DOWN_RIGHT-> { dx =  diag; dy =  diag; }
+        }
+        Position nextPos = new Position(hitbox.getWorldPosition().getX() + dx,
+                hitbox.getWorldPosition().getY() + dy);
+        Hitbox predictedHB = new Hitbox(nextPos, hitbox.getWidth(), hitbox.getHeight());
+        if (!Collisions.isHitboxCollidingWithWalls(predictedHB)) {
             Movement.move(entity);
         }
     }
+
 
 
     public void updateCurrentSprite()

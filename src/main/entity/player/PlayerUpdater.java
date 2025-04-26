@@ -19,11 +19,7 @@ public class PlayerUpdater extends EntityUpdater
     public void update()
     {
         super.update();
-
-
-
         updatePlayerDirection();
-        moveTowardsDirection();
     }
 
     private void updatePlayerDirection()

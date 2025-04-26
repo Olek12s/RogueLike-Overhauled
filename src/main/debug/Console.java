@@ -40,7 +40,8 @@ public class Console implements IUpdatable
             System.out.println("Hitbox position: " + hitboxPosition);
             System.out.println("Render: " + Camera.getRenderDistance());
         }
-        finally {
+        catch (NullPointerException ex)
+        {
 
         }
     }

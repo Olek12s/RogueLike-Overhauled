@@ -12,7 +12,7 @@ public class Player extends Entity
     {
         super(entityID);
         setUpdater(new PlayerUpdater(this));
-        this.getWorldPosition().setXY(1200, 120);
+        this.getWorldPosition().setXY(0,240);
     }
 
     @Override
