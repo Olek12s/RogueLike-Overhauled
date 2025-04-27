@@ -3,6 +3,7 @@ package main.entity.player;
 import main.entity.Entity;
 import main.entity.EntityID;
 import main.entity.EntityRenderer;
+import main.entity.Statistics;
 import main.utilities.Hitbox;
 import main.utilities.Position;
 
@@ -26,5 +27,6 @@ public class Player extends Entity
     public void setupStatistics()
     {
         getMovement().initMovementSpeed(10);
+        setStatistics(new Statistics(100));
     }
 }

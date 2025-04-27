@@ -19,6 +19,7 @@ public abstract class Entity
     private boolean isMoving;
     private Hitbox hitbox;
     private boolean isCrouching;
+    private Statistics statistics;
 
     //Abstracts//
     public abstract void setHitbox();
@@ -51,28 +52,23 @@ public abstract class Entity
     public void setDirection(Direction direction) {this.movement.setDirection(direction);}
     public boolean isCrouching() {return isCrouching;}
     public void setCrouching(boolean crouching) {isCrouching = crouching;}
-
-
+    public Statistics getStatistics() {return statistics;}
     public void setMovement(Movement movement) {
         this.movement = movement;
     }
-
     public void setEntityID(EntityID entityID) {
         this.entityID = entityID;
     }
-
     public Hitbox getHitbox() {
         return hitbox;
     }
-
     public void setHitbox(Hitbox hitbox) {
         this.hitbox = hitbox;
     }
-
     public void setRenderer(EntityRenderer renderer) {this.renderer = renderer;}
     public void setUpdater(EntityUpdater updater) {this.updater = updater;}
-
     public void setWorldPosition(Position worldPosition) {
         this.worldPosition = worldPosition;
     }
+    public void setStatistics(Statistics statistics) {this.statistics = statistics;}
 }

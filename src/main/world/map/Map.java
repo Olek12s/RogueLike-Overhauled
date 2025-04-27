@@ -1,6 +1,8 @@
 package main.world.map;
 
 import main.utilities.Position;
+import main.world.tile.Tile;
+import main.world.tile.TileID;
 import main.world.worldGeneration.MapGenerator;
 
 import java.util.concurrent.ExecutorService;

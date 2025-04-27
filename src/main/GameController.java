@@ -5,11 +5,11 @@ import main.debug.Console;
 import main.entity.Entity;
 import main.entity.EntityID;
 import main.entity.player.Player;
+import main.gui.Gui;
 import main.userInput.KeyHandler;
 import main.userInput.MouseHandler;
 import main.world.map.MapManager;
-import main.world.map.TileManager;
-import main.world.worldGeneration.MapGenerator;
+import main.world.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,6 +58,7 @@ public class GameController extends JPanel implements Runnable
     private static KeyHandler keyHandler;
     private static Camera camera;
     private static Console debugConsole;
+    private static Gui gui;
 
 
     private GameController()
@@ -81,6 +82,7 @@ public class GameController extends JPanel implements Runnable
             debugConsole = new Console();
             player = new Player(EntityID.PLAYER);
             camera = new Camera();
+            gui = new Gui();
             //mapGenerator = new MapGenerator();
         }
         return instance;

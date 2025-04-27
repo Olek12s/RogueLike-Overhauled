@@ -1,6 +1,7 @@
 package main.utilities;
 
 import main.world.map.*;
+import main.world.tile.Tile;
 
 import java.util.Objects;
 

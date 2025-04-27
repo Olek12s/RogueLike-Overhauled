@@ -8,7 +8,6 @@ import main.utilities.Position;
 import main.camera.Camera;
 import main.utilities.sprite.Sprite;
 import main.utilities.sprite.SpriteSheet;
-import main.world.map.TileID;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

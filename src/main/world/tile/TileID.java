@@ -1,4 +1,4 @@
-package main.world.map;
+package main.world.tile;
 
 public enum TileID
 {

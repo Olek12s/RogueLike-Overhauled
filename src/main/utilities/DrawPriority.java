@@ -3,10 +3,9 @@ package main.utilities;
 
 public enum DrawPriority
 {
-    One(1),
-    Two(2),
+    Map(2),
     Entity(3),
-    Map(2);
+    GUI(998);
 
     public final int value;
 

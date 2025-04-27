@@ -5,13 +5,9 @@ import main.IDrawable;
 import main.camera.Camera;
 import main.utilities.DrawPriority;
 import main.utilities.Position;
-import main.utilities.sprite.SpriteSheet;
+import main.world.tile.Tile;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class MapRenderer implements IDrawable
 {

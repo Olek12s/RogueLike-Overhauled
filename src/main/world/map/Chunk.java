@@ -2,6 +2,7 @@ package main.world.map;
 
 import main.entity.Entity;
 import main.utilities.Position;
+import main.world.tile.Tile;
 
 import java.util.ArrayList;
 import java.util.List;

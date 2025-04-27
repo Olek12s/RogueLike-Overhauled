@@ -4,7 +4,7 @@ import main.entity.Entity;
 import main.GameController;
 import main.IUpdatable;
 import main.world.map.Chunk;
-import main.world.map.Tile;
+import main.world.tile.Tile;
 
 public class CameraUpdater implements IUpdatable
 {

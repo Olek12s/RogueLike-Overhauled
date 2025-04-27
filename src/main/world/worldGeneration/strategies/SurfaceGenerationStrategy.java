@@ -1,8 +1,7 @@
 package main.world.worldGeneration.strategies;
 
-import main.world.map.TileID;
+import main.world.tile.TileID;
 import main.world.worldGeneration.IMapGenerationStrategy;
-import main.world.worldGeneration.MapGenerator;
 import main.world.worldGeneration.TerrainGenerator;
 
 public class SurfaceGenerationStrategy implements IMapGenerationStrategy
