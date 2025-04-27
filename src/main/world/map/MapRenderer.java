@@ -69,7 +69,27 @@ public class MapRenderer implements IDrawable
                         g2.drawImage(tile.getSpriteImage(), screenPos.getX(), screenPos.getY(), drawSize, drawSize, null);
                     }
                 }
+                drawChunkBoundary(g2, chunk);
             }
         }
+    }
+
+    private void drawChunkBoundary(Graphics g2, Chunk chunk)
+    {
+        int chunkPixelSize = Chunk.getChunkSize() * Tile.getTileSize();
+        final int boundaryThickness= 1;
+
+        Position chunkWorldPos = chunk.getChunkWorldPosition();
+        Position screenPos = Camera.toScreenPosition(chunkWorldPos);
+
+        double scale = Camera.getScaleFactor();
+        int scaledWidth  = (int) (chunkPixelSize * scale);
+        int scaledHeight = (int) (chunkPixelSize * scale);
+        float stroke = (float) (boundaryThickness * scale);
+
+        Graphics2D g2d = (Graphics2D) g2;
+        g2d.setColor(Color.YELLOW);
+        g2d.setStroke(new BasicStroke(stroke));
+        g2d.drawRect(screenPos.getX(), screenPos.getY(), scaledWidth, scaledHeight);
     }
 }

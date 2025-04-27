@@ -21,10 +21,12 @@ public class Collisions
             boolean isMiddleColliding = MapManager.getCurrentMap().getTile(hitbox.getCenterWorldPosition()).isCollidable();
 
 
+            /*
             if ((isUpLeftColliding || isUpRightColliding || isDownRightColliding || isDownLeftColliding || isMiddleColliding))
             {
                 System.out.println("collision");
             }
+            */
             return (isUpLeftColliding || isUpRightColliding || isDownRightColliding || isDownLeftColliding || isMiddleColliding);
         }
         catch (IndexOutOfBoundsException ex)    // out of map

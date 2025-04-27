@@ -19,6 +19,11 @@ public class Hitbox
                 worldPosition.getY() + offsetY
         );
     }
+
+    public void setWorldPosition(Position worldPosition) {
+        this.worldPosition = worldPosition;
+    }
+
     public int getWidth() {return width;}
     public int getHeight() {return height;}
     public Rectangle getHitboxRect() {

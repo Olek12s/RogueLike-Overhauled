@@ -20,6 +20,7 @@ public class PlayerUpdater extends EntityUpdater
     {
         super.update();
         updatePlayerDirection();
+        checkCrouch();
     }
 
     private void updatePlayerDirection()
@@ -65,5 +66,14 @@ public class PlayerUpdater extends EntityUpdater
             playerEntity.setDirection(Direction.UP);
             playerEntity.setMoving(true);
         }
+    }
+
+    private void checkCrouch()
+    {
+        if (KeyHandler.isCTRL_PRESSED())
+        {
+            playerEntity.setCrouching(true);
+        }
+        else playerEntity.setCrouching(false);
     }
 }

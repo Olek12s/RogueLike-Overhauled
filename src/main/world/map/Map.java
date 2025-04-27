@@ -114,18 +114,33 @@ public class Map
 
     public Tile getTile(int worldX, int worldY)
     {
-        Chunk chunk = getChunk(worldX, worldY);
-        Position chunkOrigin = chunk.getChunkWorldPosition();
+        int tileSize = Tile.getTileSize();
+        int chunkSize = Chunk.getChunkSize();
+        int chunkPixelSize = chunkSize * tileSize;
 
-        int localX = (worldX - chunkOrigin.getX()) / Tile.getTileSize();
-        int localY = (worldY - chunkOrigin.getY()) / Tile.getTileSize();
+        int halfMapPxX = (chunks.length  / 2) * chunkPixelSize;
+        int halfMapPxY = (chunks[0].length / 2) * chunkPixelSize;
+        int adjX = worldX + halfMapPxX + Tile.getTileSize() / 2;
+        int adjY = worldY + halfMapPxY + Tile.getTileSize() / 2;
 
-        if (localX < 0 || localX >= Chunk.getChunkSize() || localY < 0 || localY >= Chunk.getChunkSize())
+        int chunkX = Math.floorDiv(adjX, chunkPixelSize);
+        int chunkY = Math.floorDiv(adjY, chunkPixelSize);
+
+        if (chunkX < 0 || chunkX >= chunks.length || chunkY < 0 || chunkY >= chunks[0].length)
         {
-            throw new IndexOutOfBoundsException("Local tile coords out of bounds: (" + localX + ", " + localY + ")");
+            throw new IndexOutOfBoundsException(
+                    "Position out of map: (" + worldX + ", " + worldY + ")");
         }
-        return chunk.getTiles()[localX][localY];
-    }
 
-    public Tile getTile(Position position) {return getTile(position.getX(), position.getY());}
+        int pxInChunkX = Math.floorMod(adjX, chunkPixelSize);
+        int pxInChunkY = Math.floorMod(adjY, chunkPixelSize);
+        int tileX = Math.floorDiv(pxInChunkX, tileSize);
+        int tileY = Math.floorDiv(pxInChunkY, tileSize);
+
+        return chunks[chunkX][chunkY].getTiles()[tileX][tileY];
+    }
+    public Tile getTile(Position pos)
+    {
+        return getTile(pos.getX(), pos.getY());
+    }
 }

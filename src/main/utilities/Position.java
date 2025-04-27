@@ -51,6 +51,25 @@ public class Position
         return new Position(this.x, this.y);
     }
 
+    public void incrementX()
+    {
+        x++;
+    }
+    public void incrementY()
+    {
+        y++;
+    }
+
+    public void decrementX()
+    {
+        x--;
+    }
+
+    public void decrementY()
+    {
+        y--;
+    }
+
 
     @Override
     public String toString()

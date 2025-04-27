@@ -18,6 +18,7 @@ public abstract class Entity
     private Chunk currentChunk;
     private boolean isMoving;
     private Hitbox hitbox;
+    private boolean isCrouching;
 
     //Abstracts//
     public abstract void setHitbox();
@@ -48,6 +49,9 @@ public abstract class Entity
     public void setMoving(boolean moving) {isMoving = moving;}
     public int getANIMATION_SPEED() {return ANIMATION_SPEED;}
     public void setDirection(Direction direction) {this.movement.setDirection(direction);}
+    public boolean isCrouching() {return isCrouching;}
+    public void setCrouching(boolean crouching) {isCrouching = crouching;}
+
 
     public void setMovement(Movement movement) {
         this.movement = movement;

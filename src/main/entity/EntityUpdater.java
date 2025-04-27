@@ -25,6 +25,7 @@ public class EntityUpdater implements IUpdatable
         updateChunkAssociation();
         updateCurrentSprite();
         moveTowardsDirection();
+        updateStatisticsMovementSpeed();
     }
 
     public void updateChunkAssociation()
@@ -43,29 +44,56 @@ public class EntityUpdater implements IUpdatable
         }
     }
 
-    public void moveTowardsDirection() {
-        if (!entity.isMoving() || entity.getMovement().getDirection() == null) return;
+    public void moveTowardsDirection()
+    {
+        if (!entity.isMoving()) return;
+        Direction dir = entity.getMovement().getDirection();
+        if (dir == null) return;
+
         Hitbox hitbox = entity.getHitbox();
-        Movement mov = entity.getMovement();
-        int speed = mov.getCurrentMovementSpeed();
-        int diag = Math.max(1, (int)Math.round(speed/Math.sqrt(2)));
+        int speed = entity.getMovement().getCurrentMovementSpeed();
+        int diag  = Math.max(1, (int)Math.round(speed/Math.sqrt(2)));
         int dx = 0, dy = 0;
-        switch (mov.getDirection()) {
-            case UP        -> dy = -speed;
-            case DOWN      -> dy =  speed;
-            case LEFT      -> dx = -speed;
-            case RIGHT     -> dx =  speed;
-            case UP_LEFT   -> { dx = -diag; dy = -diag; }
-            case UP_RIGHT  -> { dx =  diag; dy = -diag; }
-            case DOWN_LEFT -> { dx = -diag; dy =  diag; }
-            case DOWN_RIGHT-> { dx =  diag; dy =  diag; }
+        switch (dir) {
+            case UP:         dy = -speed; break;
+            case DOWN:       dy =  speed; break;
+            case LEFT:       dx = -speed; break;
+            case RIGHT:      dx =  speed; break;
+            case UP_LEFT:    dx = -diag; dy = -diag; break;
+            case UP_RIGHT:   dx =  diag; dy = -diag; break;
+            case DOWN_LEFT:  dx = -diag; dy =  diag; break;
+            case DOWN_RIGHT: dx =  diag; dy =  diag; break;
         }
-        Position nextPos = new Position(hitbox.getWorldPosition().getX() + dx,
-                hitbox.getWorldPosition().getY() + dy);
-        Hitbox predictedHB = new Hitbox(nextPos, hitbox.getWidth(), hitbox.getHeight());
-        if (!Collisions.isHitboxCollidingWithWalls(predictedHB)) {
+
+        Position old = hitbox.getWorldPosition();
+        Position next = new Position(old.getX() + dx, old.getY() + dy);
+        Hitbox predicted = new Hitbox(next, hitbox.getWidth(), hitbox.getHeight());
+
+        if (!Collisions.isHitboxCollidingWithWalls(predicted))
+        {
             Movement.move(entity);
         }
+        else
+        {
+            //TODO: precise movement near collidables for higher speeds
+        }
+    }
+
+    public void updateStatisticsMovementSpeed()
+    {
+        int updatedMovementSpeed = entity.getMovement().getMaxMovementSpeed();
+        /*
+        for (Slot slot : equippedSlots)
+        {
+            if (slot.getStoredItem() == null) continue;
+            updatedMovementSpeed /= (float)(slot.getStoredItem().getStatistics().getMovementSpeedPenalty());
+        }
+
+        Item storedItem = entity.getCurrentBeltSlot().getStoredItem();
+        if (storedItem != null) updatedMovementSpeed /= (float)(storedItem.getStatistics().getMovementSpeedPenalty());
+        */
+        if (entity.isCrouching()) updatedMovementSpeed /= 3;
+        entity.getMovement().setCurrentMovementSpeed(updatedMovementSpeed);
     }
 
 
