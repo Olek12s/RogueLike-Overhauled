@@ -26,8 +26,6 @@ public class Slot
         this.height = height;
         this.colNum = colNum;
         this.rowNum = rowNum;
-
-        System.out.println("created slot:" + slotType);
     }
 
     public Slot(SlotType slotType, int width, int height)
