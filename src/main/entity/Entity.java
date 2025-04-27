@@ -1,5 +1,6 @@
 package main.entity;
 
+import main.inventory.Inventory;
 import main.utilities.Direction;
 import main.utilities.Hitbox;
 import main.utilities.Movement;
@@ -20,6 +21,7 @@ public abstract class Entity
     private Hitbox hitbox;
     private boolean isCrouching;
     private Statistics statistics;
+    private Inventory inventory;
 
     //Abstracts//
     public abstract void setHitbox();
@@ -34,6 +36,7 @@ public abstract class Entity
         this.updater = new EntityUpdater(this);
         this.movement = new Movement();
         this.entityID = entityID;
+        this.inventory = new Inventory();
         setHitbox();
         setupStatistics();
     }
