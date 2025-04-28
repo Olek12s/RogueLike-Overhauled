@@ -4,12 +4,20 @@ public class Gui
 {
     private GuiRenderer guiRenderer;
     private GuiUpdater guiUpdater;
-    private HealthBar healthBar;
-
     private static int scaleX;
     private static int scaleY;
     private static int scale;
+    private static final int baseSlotSize = 45;
+    private static int slotSize;
 
+    private HealthBar healthBar;
+    private MainInv mainInv;
+
+
+    public int getBaseSlotSize() {return baseSlotSize;}
+
+    public static int getSlotSize() {return slotSize;}
+    public static void setSlotSize(int slotSize) {Gui.slotSize = slotSize;}
     public GuiRenderer getGuiRenderer() {return guiRenderer;}
     public GuiUpdater getGuiUpdater() {return guiUpdater;}
     public HealthBar getHealthBar() {return healthBar;}

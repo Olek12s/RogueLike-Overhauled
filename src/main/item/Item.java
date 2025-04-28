@@ -1,6 +1,7 @@
 package main.item;
 
 import main.utilities.Position;
+import main.utilities.sprite.Sprite;
 
 public abstract class Item
 {
@@ -12,4 +13,8 @@ public abstract class Item
     public int getSlotHeight() {return slotHeight;}
     public void setInventoryPosition(Position inventoryPosition) { this.inventoryPosition = inventoryPosition; }
     public Position getInventoryPosition() {return inventoryPosition;}
+    public Sprite getSprite()
+    {
+
+    }
 }

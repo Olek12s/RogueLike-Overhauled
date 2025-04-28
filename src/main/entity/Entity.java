@@ -74,4 +74,6 @@ public abstract class Entity
         this.worldPosition = worldPosition;
     }
     public void setStatistics(Statistics statistics) {this.statistics = statistics;}
+    public Inventory getInventory() {return inventory;}
+    public void setInventory(Inventory inventory) {this.inventory = inventory;}
 }

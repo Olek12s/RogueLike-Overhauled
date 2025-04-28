@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class Inventory
 {
-    private static final int INVENTORY_WIDTH_SLOTS = 9;
-    private static final int INVENTORY_HEIGHT_SLOTS = 4;
-    private static final int INVENTORY_BELT_SLOTS = 6;
+    public static final int INVENTORY_WIDTH_SLOTS = 9;
+    public static final int INVENTORY_HEIGHT_SLOTS = 4;
+    public static final int INVENTORY_BELT_SLOTS = 6;
 
     private List<Item> mainInventoryItemList;
     private Slot[][] inventorySlots;
