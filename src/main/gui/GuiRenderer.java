@@ -27,7 +27,23 @@ public class GuiRenderer implements IDrawable
     @Override
     public void draw(Graphics g2)
     {
-        gui.getHealthBar().renderHealthBar(g2);
+        gui.getBeltInvGui().renderInventorybelt(g2);        // correct positioning
+        gui.getCraftingGui().renderCrafting(g2);         //TODO: finish
+        gui.getDebugInfoGui().renderDebugInfo(g2);          // correct positioning
+        gui.getEquippedInvGui().renderEquippedFrame(g2); //TODO: finish
+        gui.getHealthBar().renderHealthBar(g2);             // correct positioning
+        gui.getMainInvGui().renderMainInventory(g2);        // correct positioning
+        gui.getStatisticsGui().renderStatisticsFrame(g2);   // correct positioning
+
+        /*
+    private BeltInvGui beltInvGui;
+    private CraftingGui craftingGui;
+    private DebugInfoGui debugInfoGui;
+    private EquippedInvGui equippedInvGui;
+    private HealthBarGui healthBar;
+    private MainInvGui mainInvGui;
+    private Statistics statisticsGui;
+        */
     }
 
     public static void renderFrame(Graphics g, int x, int y, int width, int height, int innerPadding, int outerWidth, int innerWidth, float opacity)

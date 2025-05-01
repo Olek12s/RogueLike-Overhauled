@@ -7,11 +7,9 @@ import main.utilities.Position;
 
 import java.awt.*;
 
-public class MainInv
+public class MainInvGui
 {
-
-
-    public static void renderMainInventory(Graphics g2)
+    public void renderMainInventory(Graphics g2)
     {
         Graphics2D g2d = (Graphics2D) g2.create();
 
@@ -23,25 +21,10 @@ public class MainInv
         int heightSlots = Inventory.INVENTORY_HEIGHT_SLOTS;
 
         int totalWidth = widthSlots * Gui.getSlotSize();
-        int totalHeight = heightSlots * Gui.getSlotSize();
+        int totalHeight = heightSlots * Gui.getSlotSize();;
 
-        int beltSlotCount = Inventory.INVENTORY_BELT_SLOTS;
-        int beltTotalWidth = beltSlotCount * Gui.getSlotSize();
-        //int beltY = beltPosition.y - height/2;    //TODO: c
-
-
-        // set main inventory position above inventory bar
-        int inventoryFrameX = (width - totalWidth) / 2;
-        int inventoryFrameY = beltY - totalHeight;
-
-        /*
-        if (mainInventoryFramePosition == null) mainInventoryFramePosition = new Position(inventoryFrameX, inventoryFrameY);
-        else
-        {
-            mainInventoryFramePosition.x = inventoryFrameX;
-            mainInventoryFramePosition.y = inventoryFrameY;
-        }
-        */
+        int inventoryFrameX = (width  - totalWidth ) / 2;
+        int inventoryFrameY = (height - totalHeight) / 2;
 
         // Drawing every inventory slot
         for (int i = 0; i < widthSlots; i++)
@@ -70,10 +53,7 @@ public class MainInv
         }
     }
 
-
-
-
-    public MainInv()
+    public MainInvGui()
     {
 
     }

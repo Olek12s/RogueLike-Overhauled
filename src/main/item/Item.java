@@ -15,6 +15,6 @@ public abstract class Item
     public Position getInventoryPosition() {return inventoryPosition;}
     public Sprite getSprite()
     {
-
+        return null;
     }
 }

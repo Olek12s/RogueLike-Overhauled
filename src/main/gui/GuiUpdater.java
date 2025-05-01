@@ -32,10 +32,17 @@ public class GuiUpdater implements IUpdatable
         Gui.setScale(Math.min(Gui.getScaleX(), Gui.getScaleY()));
     }
 
-    public void updateSizes()
+    public static void updateSizes()
     {
-        //scaledFontSize = (int) (baseFontSize * Gui.getScale() / 64);
-        //HUDFont = new Font("Monospaced", Font.BOLD, scaledFontSize);
-        gui.setSlotSize((gui.getBaseSlotSize() * Gui.getScale()) / 64);
+        int newFontSize = (int) (Gui.getBaseFontSize() * Gui.getScale() / 64);
+        Gui.setScaledFontSize(newFontSize);
+
+        Font currentFont = Gui.getFont();
+        if (currentFont == null || currentFont.getSize() != newFontSize)
+        {
+            Gui.setFont(new Font("Monospaced", Font.BOLD, newFontSize));
+        }
+
+        Gui.setSlotSize((Gui.getBaseSlotSize() * Gui.getScale()) / 64);
     }
 }

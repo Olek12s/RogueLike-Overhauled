@@ -1,7 +1,6 @@
 package main.gui;
 
 import main.GameController;
-import main.entity.player.Player;
 import main.utilities.sprite.Sprite;
 import main.utilities.sprite.SpriteSheet;
 
@@ -10,12 +9,12 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class HealthBar
+public class HealthBarGui
 {
     private SpriteSheet spriteSheet;
     private Sprite currentSprite;
 
-    public HealthBar()
+    public HealthBarGui()
     {
         try
         {

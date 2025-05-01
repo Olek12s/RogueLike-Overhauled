@@ -4,8 +4,14 @@ import main.inventory.Inventory;
 
 import java.awt.*;
 
-public class EquippedInv
+public class EquippedInvGui
 {
+    public void renderEquippedFrame(Graphics g2)
+    {
+
+    }
+
+    /*
     public void renderEquippedFrame(Graphics g2)
     {
         Graphics2D g2d = (Graphics2D) g2.create();
@@ -134,4 +140,5 @@ public class EquippedInv
 
         g2d.dispose();
     }
+    */
 }

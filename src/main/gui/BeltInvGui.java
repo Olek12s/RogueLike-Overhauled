@@ -3,21 +3,20 @@ package main.gui;
 import main.GameController;
 import main.inventory.Inventory;
 import main.item.Item;
-import main.utilities.Position;
 
 import java.awt.*;
 
-public class BeltInv
+public class BeltInvGui
 {
-    public static void renderInventorybelt(Graphics g2)
+    public void renderInventorybelt(Graphics g2)
     {
         Graphics2D g2d = (Graphics2D) g2;
         int slotCount = Inventory.INVENTORY_BELT_SLOTS;
         int totalWidth = slotCount * Gui.getSlotSize();
 
         int marginFromBottom = 10;
-        int beltX = (hud.gc.getWidth() - totalWidth) / 2;
-        int beltY = hud.gc.getHeight() - Gui.getSlotSize() - marginFromBottom;
+        int beltX = (GameController.getInstance().getWidth() - totalWidth) / 2;
+        int beltY = GameController.getInstance().getHeight() - Gui.getSlotSize() - marginFromBottom;
 
         /*
         if (beltPosition == null) beltPosition = new Position(beltX, beltY);
@@ -34,7 +33,7 @@ public class BeltInv
             int frameY = beltY;
 
 
-            if (i == GameController.getPlayer().getCurrentBeltSlotIndex())   // highlight currently selected slot
+            if (i == GameController.getPlayer().getInventory().getCurrentSlotIdx())   // highlight currently selected slot
             {
                 GuiRenderer.renderFrame(g2d, frameX, frameY, Gui.getSlotSize(), Gui.getSlotSize(), 3, 6, 3, 0.5f);
             }
