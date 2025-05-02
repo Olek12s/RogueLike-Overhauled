@@ -45,6 +45,5 @@ public class ItemRenderer implements IDrawable
         int w = (int) Math.ceil(img.getWidth()  * scale);
         int h = (int) Math.ceil(img.getHeight() * scale);
         g2.drawImage(img, sp.getX(), sp.getY(), w, h, null);
-        System.out.println("render");
     }
 }

@@ -4,6 +4,7 @@ import main.GameController;
 import main.IUpdatable;
 import main.camera.Camera;
 import main.utilities.Position;
+import main.world.map.MapManager;
 
 public class Console implements IUpdatable
 {
@@ -39,6 +40,7 @@ public class Console implements IUpdatable
             System.out.print("World Position: " + playerPosition + " | ");
             System.out.println("Hitbox position: " + hitboxPosition);
             System.out.println("Render: " + Camera.getRenderDistance());
+            System.out.println("Tile: " + MapManager.getCurrentMap().getTile(playerPosition));
         }
         catch (NullPointerException ex)
         {

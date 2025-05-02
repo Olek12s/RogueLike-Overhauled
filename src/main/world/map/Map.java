@@ -122,8 +122,8 @@ public class Map
 
         int halfMapPxX = (chunks.length  / 2) * chunkPixelSize;
         int halfMapPxY = (chunks[0].length / 2) * chunkPixelSize;
-        int adjX = worldX + halfMapPxX + Tile.getTileSize() / 2;
-        int adjY = worldY + halfMapPxY + Tile.getTileSize() / 2;
+        int adjX = worldX + halfMapPxX;
+        int adjY = worldY + halfMapPxY;
 
         int chunkX = Math.floorDiv(adjX, chunkPixelSize);
         int chunkY = Math.floorDiv(adjY, chunkPixelSize);
