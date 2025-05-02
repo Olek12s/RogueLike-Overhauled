@@ -17,16 +17,6 @@ public class Inventory
     private List<Item> mainInventoryItemList;
     private Slot[][] inventorySlots;
     private Slot[] beltSlots;
-    /*
-    private Slot helmetSlot;
-    private Slot chestplateSlot;
-    private Slot pantsSlot;
-    private Slot bootsSlot;
-    private Slot shieldSlot;
-    private Slot ring1Slot;
-    private Slot ring2Slot;
-    private Slot amuletSlot;
-    */
     private final Map<SlotType, Slot> equipmentSlots;
     private int currentSlotIdx;
 
@@ -36,16 +26,7 @@ public class Inventory
     public Slot getEquipmentSlot(SlotType type) {
         return equipmentSlots.get(type);
     }
-    /*
-    public Slot getHelmetSlot() {return helmetSlot;}
-    public Slot getChestplateSlot() {return chestplateSlot;}
-    public Slot getPantsSlot() {return pantsSlot;}
-    public Slot getBootsSlot() {return bootsSlot;}
-    public Slot getShieldSlot() {return shieldSlot;}
-    public Slot getRing1Slot() {return ring1Slot;}
-    public Slot getRing2Slot() {return ring2Slot;}
-    public Slot getAmuletSlot() {return amuletSlot;}
-    */
+
 
     public int getCurrentSlotIdx() {return currentSlotIdx;}
 
@@ -200,4 +181,25 @@ public class Inventory
         equipmentSlots.get(slot).setStoredItem(null);
     }
 
+    public boolean hasCraftMaterials(Map<Item, Integer> requiredMaterials)
+    {
+        Map<Item, Integer> counts = new HashMap<>();
+        for (Item it : mainInventoryItemList)
+        {
+            counts.put(it, counts.getOrDefault(it, 0) + 1);
+        }
+
+        // checking if for every needed material there's enough in inventory
+        for (Map.Entry<Item, Integer> req : requiredMaterials.entrySet())
+        {
+            Item material = req.getKey();
+            int needed = req.getValue();
+            int have = counts.getOrDefault(material, 0);
+            if (have < needed)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
