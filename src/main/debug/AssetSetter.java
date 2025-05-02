@@ -8,9 +8,9 @@ public class AssetSetter
    public AssetSetter()
    {
 
-       for (int i = 0; i < 100; i++)
+       for (int i = 0; i < 00; i++)
        {
-           for (int j = 0; j < 100; j++)
+           for (int j = 0; j < 000; j++)
            {
                new BlueFlower(new Position(i*8, j*8));
            }

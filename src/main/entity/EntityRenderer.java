@@ -84,8 +84,15 @@ public class EntityRenderer implements IDrawable
     {
         Position screenPosition = Camera.toScreenPosition(entity.getWorldPosition());
         Sprite sprite = getCurrentSprite();
-        BufferedImage image = sprite.getImage();
+        int worldW = sprite.resolutionX;
+        int worldH = sprite.resolutionY;
 
+        if (!Camera.isVisibleOnScreen(entity.getWorldPosition(), worldW, worldH))
+        {
+            return;
+        }
+
+        BufferedImage image = sprite.getImage();
         int drawSizeX = (int) Math.ceil(sprite.resolutionX * Camera.getScaleFactor());
         int drawSizeY = (int) Math.ceil(sprite.resolutionY * Camera.getScaleFactor());
 

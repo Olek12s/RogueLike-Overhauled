@@ -69,7 +69,6 @@ public class MapRenderer implements IDrawable
                     }
                 }
                 drawChunkBoundary(g2, chunk);
-                drawItemsOnGround(g2, chunk);
             }
         }
     }
@@ -91,29 +90,5 @@ public class MapRenderer implements IDrawable
         g2d.setColor(Color.YELLOW);
         g2d.setStroke(new BasicStroke(stroke));
         g2d.drawRect(screenPos.getX(), screenPos.getY(), scaledWidth, scaledHeight);
-    }
-
-    private void drawItemsOnGround(Graphics g2, Chunk chunk)
-    {
-        List<Item> items = chunk.getItems();
-        if (items == null || items.isEmpty()) return;
-
-        double scale = Camera.getScaleFactor();
-
-        for (Item item : items)
-        {
-            Position wp = item.getWorldPosition();
-            if (wp == null)
-            {
-                continue;
-            }
-
-            Position sp = Camera.toScreenPosition(wp);
-            BufferedImage img = item.getSprite().getImage();
-            int w = (int) Math.ceil(img.getWidth()  * scale);
-            int h = (int) Math.ceil(img.getHeight() * scale);
-
-            g2.drawImage(img, sp.getX(), sp.getY(), w, h, null);
-        }
     }
 }

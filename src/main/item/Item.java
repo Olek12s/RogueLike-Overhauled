@@ -17,6 +17,8 @@ public abstract class Item
     private boolean isInsideInventory;
     private ItemStatistics statistics;
 
+    private ItemRenderer itemRenderer;
+
 
     public Item(ItemID itemID)  // constructor for items inside the inventories
     {
@@ -24,6 +26,7 @@ public abstract class Item
         this.slotWidth = ItemManager.getSlotWidth(itemID);
         this.slotHeight = ItemManager.getSlotHeight(itemID);
         this.hitbox = ItemManager.getHitbox(itemID);
+        this.itemRenderer = new ItemRenderer(this);
         setInsideInventory();
     }
 
@@ -33,6 +36,7 @@ public abstract class Item
         this.slotWidth = ItemManager.getSlotWidth(itemID);
         this.slotHeight = ItemManager.getSlotHeight(itemID);
         this.hitbox = ItemManager.getHitbox(itemID);
+        this.itemRenderer = new ItemRenderer(this);
         dropOnGround(worldPosition);
     }
 

@@ -81,4 +81,18 @@ public class Camera
             scaleFactor = Math.min(MAX_ZOOM, scaleFactor + ZOOM_STEP);
         }
     }
+
+    public static boolean isVisibleOnScreen(Position worldPosition, int worldWidth, int worldHeight)
+    {
+        GameController gc = GameController.getInstance();
+        Position screenPos = toScreenPosition(worldPosition);
+
+        double scale = getScaleFactor();
+        int pxW = (int)Math.ceil(worldWidth  * scale);
+        int pxH = (int)Math.ceil(worldHeight * scale);
+        int screenW = gc.getWidth();
+        int screenH = gc.getHeight();
+
+        return screenPos.getX() + pxW > 0 && screenPos.getX() < screenW && screenPos.getY() + pxH > 0 && screenPos.getY() < screenH;
+    }
 }
