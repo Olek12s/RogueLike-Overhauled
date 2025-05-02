@@ -37,6 +37,10 @@ public abstract class Item
     {
         return ItemManager.getInstance().getItemSprite(itemID);
     }
+    public Position getWorldPosition() {return worldPosition;}
+    public ItemID getItemID() {return itemID;}
+    public Hitbox getHitbox() {return hitbox;}
+    public boolean isInsideInventory() {return isInsideInventory;}
 
     private void setInsideInventory(boolean isInsideInventory, Position worldPosition)
     {
