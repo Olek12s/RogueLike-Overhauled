@@ -2,6 +2,7 @@ package main;
 
 import main.camera.Camera;
 import main.crafting.CraftingManager;
+import main.debug.AssetSetter;
 import main.debug.Console;
 import main.entity.Entity;
 import main.entity.EntityID;
@@ -64,6 +65,7 @@ public class GameController extends JPanel implements Runnable
     private static Gui gui;
     private static ItemManager itemManager;
     private static CraftingManager craftingManager;
+    private static AssetSetter assetSetter;
 
 
     private GameController()
@@ -82,14 +84,16 @@ public class GameController extends JPanel implements Runnable
             initializeThread();
             initializeUserInput();
 
+            itemManager = ItemManager.getInstance();
+            craftingManager = CraftingManager.getInstance();
             mapManager = new MapManager();
             tileManager = new TileManager();
             debugConsole = new Console();
             player = new Player(EntityID.PLAYER);
             camera = new Camera();
             gui = new Gui();
-            itemManager = ItemManager.getInstance();
-            craftingManager = CraftingManager.getInstance();
+            assetSetter = new AssetSetter();
+
             //mapGenerator = new MapGenerator();
         }
         return instance;

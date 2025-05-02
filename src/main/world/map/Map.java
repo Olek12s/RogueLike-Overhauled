@@ -93,7 +93,7 @@ public class Map
                             int worldX = chunkX * chunkSize + tx;
                             int worldY = chunkY * chunkSize + ty;
 
-                            Position raw = new Position(worldX * Tile.getTileSize(), worldY * Tile.getTileSize());
+                            Position raw = new Position(worldX * Tile.getTileSize() + Tile.getTileSize()/2, worldY * Tile.getTileSize() + Tile.getTileSize()/2);
                             Position centered = Position.center(raw, mapID);
 
                             TileID id = TileID.fromId(tileMapIDValues[worldX][worldY]);

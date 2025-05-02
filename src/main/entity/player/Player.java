@@ -4,6 +4,7 @@ import main.entity.Entity;
 import main.entity.EntityID;
 import main.entity.EntityRenderer;
 import main.entity.Statistics;
+import main.item.ingredients.BlueFlower;
 import main.utilities.Hitbox;
 import main.utilities.Position;
 

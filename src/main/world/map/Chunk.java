@@ -51,6 +51,7 @@ public class Chunk
         if (!items.contains(item))
         {
             items.add(item);
+            System.out.println("added");
         }
     }
     public void removeItem(Item item) {items.remove(item);}

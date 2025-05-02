@@ -103,7 +103,10 @@ public class MapRenderer implements IDrawable
         for (Item item : items)
         {
             Position wp = item.getWorldPosition();
-            if (wp == null) continue;
+            if (wp == null)
+            {
+                continue;
+            }
 
             Position sp = Camera.toScreenPosition(wp);
             BufferedImage img = item.getSprite().getImage();
