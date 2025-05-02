@@ -13,8 +13,8 @@ public abstract class Item
     public int getSlotHeight() {return slotHeight;}
     public void setInventoryPosition(Position inventoryPosition) { this.inventoryPosition = inventoryPosition; }
     public Position getInventoryPosition() {return inventoryPosition;}
-    public Sprite getSprite()
+    public Sprite getSprite(ItemID itemID)
     {
-        return null;
+        return ItemManager.getInstance().getItemSprite(itemID);
     }
 }

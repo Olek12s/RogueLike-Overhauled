@@ -11,20 +11,19 @@ public class CraftingRecipe
     private final Item result;
     private final Map<Item, Integer> requiredMaterials;
 
-    public CraftingRecipe(Item result, Map<Item, Integer> requiredMaterials) {
+    public CraftingRecipe(Item result, Map<Item, Integer> requiredMaterials)
+    {
         this.result = result;
-        // preserve insertion order
         this.requiredMaterials = new LinkedHashMap<>(requiredMaterials);
     }
 
-    public Item getResult() {
+    public Item getResult()
+    {
         return result;
     }
 
-    /**
-     * Returns an unmodifiable map of materials and their counts.
-     */
-    public Map<Item, Integer> getRequiredMaterials() {
+    public Map<Item, Integer> getRequiredMaterials()
+    {
         return Collections.unmodifiableMap(requiredMaterials);
     }
 }

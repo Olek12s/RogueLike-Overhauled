@@ -56,8 +56,6 @@ public class Gui
 
     public Gui()
     {
-       guiRenderer = new GuiRenderer(this);
-       guiUpdater = new GuiUpdater(this);
 
        this.beltInvGui = new BeltInvGui();
        this.craftingGui = new CraftingGui();
@@ -66,5 +64,8 @@ public class Gui
        this.healthBar = new HealthBarGui();
        this.mainInvGui = new MainInvGui();
        this.statisticsGui = new StatisticsGui();
+
+       guiRenderer = new GuiRenderer(this);
+       guiUpdater = new GuiUpdater(this);
     }
 }
