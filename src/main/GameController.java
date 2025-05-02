@@ -1,11 +1,14 @@
 package main;
 
 import main.camera.Camera;
+import main.crafting.CraftingManager;
 import main.debug.Console;
 import main.entity.Entity;
 import main.entity.EntityID;
 import main.entity.player.Player;
 import main.gui.Gui;
+import main.item.Item;
+import main.item.ItemManager;
 import main.userInput.KeyHandler;
 import main.userInput.MouseHandler;
 import main.world.map.MapManager;
@@ -59,6 +62,8 @@ public class GameController extends JPanel implements Runnable
     private static Camera camera;
     private static Console debugConsole;
     private static Gui gui;
+    private static ItemManager itemManager;
+    private static CraftingManager craftingManager;
 
 
     private GameController()
@@ -83,6 +88,8 @@ public class GameController extends JPanel implements Runnable
             player = new Player(EntityID.PLAYER);
             camera = new Camera();
             gui = new Gui();
+            itemManager = ItemManager.getInstance();
+            craftingManager = CraftingManager.getInstance();
             //mapGenerator = new MapGenerator();
         }
         return instance;
