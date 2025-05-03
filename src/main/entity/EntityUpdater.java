@@ -40,7 +40,6 @@ public class EntityUpdater implements IUpdatable
                 currentChunk.removeEntity(entity);
             }
             newChunk.addEntity(entity);
-            System.out.println("changed");
             entity.setCurrentChunk(newChunk);
         }
     }
