@@ -48,6 +48,7 @@ public class Sprite
         double inv = 1.0 / scale;
         int level = (int)Math.floor(Math.log(inv) / Math.log(2));
         level = Math.max(0, Math.min(levels.size() - 1, level));
-        return levels.get(level);
+        //return levels.get(level); // TODO: fix mip mapping (some textures are getting wrongly scaled)
+        return levels.getFirst();
     }
 }

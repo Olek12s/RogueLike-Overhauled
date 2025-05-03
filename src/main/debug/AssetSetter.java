@@ -1,5 +1,6 @@
 package main.debug;
 
+import main.item.armor.chestplate.WoodenChestplate;
 import main.item.ingredients.BlueFlower;
 import main.utilities.Position;
 
@@ -21,5 +22,6 @@ public class AssetSetter
 
        new BlueFlower(new Position(-538, 1018));
        new BlueFlower(new Position(-300, 1018));
+       new WoodenChestplate(new Position(-500, 1000));
    }
 }

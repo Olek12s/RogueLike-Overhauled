@@ -45,5 +45,26 @@ public class ItemRenderer implements IDrawable
         int w = (int) Math.ceil(img.getWidth()  * scale);
         int h = (int) Math.ceil(img.getHeight() * scale);
         g2.drawImage(img, sp.getX(), sp.getY(), w, h, null);
+        drawHitbox(g2);
+    }
+
+    private void drawHitbox(Graphics g2)
+    {
+        double scaleFactor = Camera.getScaleFactor();
+        Position screenPosition = Camera.toScreenPosition(item.getHitbox().getHitboxRect().x, item.getHitbox().getHitboxRect().y);
+
+        int scaledHitboxWidth = (int) (item.getHitbox().getHitboxRect().width * scaleFactor);
+        int scaledHitboxHeight = (int) (item.getHitbox().getHitboxRect().height * scaleFactor);
+
+        int worldW = item.getSprite().getImage().getWidth();
+        int worldH = item.getSprite().getImage().getHeight();
+
+        if (!Camera.isVisibleOnScreen(item.getWorldPosition(), worldW, worldH))
+        {
+            return;
+        }
+
+        g2.setColor (Color.ORANGE);
+        g2.drawRect(screenPosition.getX(), screenPosition.getY(), scaledHitboxWidth, scaledHitboxHeight);
     }
 }
