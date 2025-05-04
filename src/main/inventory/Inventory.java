@@ -85,14 +85,13 @@ public class Inventory
             return false;
         }
 
-        // check if all required slots are not occupied by other items
         for (int i = slotX; i < slotX + item.getSlotWidth(); i++)
         {
             for (int j = slotY; j < slotY + item.getSlotHeight(); j++)
             {
                 if (inventorySlots[i][j].getStoredItem() != null)
                 {
-                    return false;   // if slot is occupied - return null
+                    return false;
                 }
             }
         }

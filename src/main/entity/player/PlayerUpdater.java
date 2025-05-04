@@ -50,6 +50,7 @@ public class PlayerUpdater extends EntityUpdater
         checkCrouch();
 
         if (KeyHandler.isF_PRESSED()) pickUpItemFromGround();
+        checkPickUpClickedItemFromSlot();
         checkDropHeldItemOnGround();
     }
 
@@ -147,7 +148,6 @@ public class PlayerUpdater extends EntityUpdater
             return;
         }
         wasMouseClicked = true;
-        System.err.println("click");
 
         Position mousePos = MouseHandler.getMousePosition();
         Slot clickedSlot = Gui.getClickedSlot(mousePos);
@@ -158,7 +158,7 @@ public class PlayerUpdater extends EntityUpdater
         }
         else
         {
-          //  handleClickOnSlot(mousePos);
+             handleClickOnSlot(mousePos);
         }
     }
 
@@ -168,7 +168,6 @@ public class PlayerUpdater extends EntityUpdater
         Item held = playerEntity.getHeldItem();
         if (held == null) return;
 
-        // Znajdź slot pod kursorem
         Slot clickedSlot = Gui.getClickedSlot(clickPos);
         if (clickedSlot == null) return;
 
@@ -176,26 +175,25 @@ public class PlayerUpdater extends EntityUpdater
 
         switch (type) {
             case mainInvSlot -> {
-                int x = clickedSlot.getColNum();
-                int y = clickedSlot.getRowNum();
+                int x = clickedSlot.getRowNum();
+                int y = clickedSlot.getColNum();
                 Item inSlot = clickedSlot.getStoredItem();
 
-                if (inSlot == null) {
-                    // Wkładamy held do pustego slotu
-                    inv.addItem(held, x, y);
-                    playerEntity.setHeldItem(null);
-                } else {
-                    // Swap: held <-> inSlot
-                    // 1. Włóż held na miejsce inSlot
+                if (inSlot == null)
+                {
+                    if(inv.addItem(held, x, y)) playerEntity.setHeldItem(null);
+                }
+                else {
+
                     inv.removeItemFromMainInv(x, y);
                     inv.addItem(held, x, y);
                     held.setInventoryPosition(new Position(x, y));
 
-                    // 2. Podnieś poprzedni item
+
                     playerEntity.setHeldItem(inSlot);
                     inSlot.setInventoryPosition(null);
 
-                    // Usuń stary item z listy i dodaj nowy
+
                     inv.getMainInventoryItemList().remove(inSlot);
                     inv.getMainInventoryItemList().add(held);
                 }
@@ -205,17 +203,17 @@ public class PlayerUpdater extends EntityUpdater
                 Item inSlot = clickedSlot.getStoredItem();
 
                 if (inSlot == null) {
-                    // Wkładamy held na pusty pasek
+
                     clickedSlot.setStoredItem(held);
                     playerEntity.setHeldItem(null);
                 } else {
-                    // Swap: held <-> inSlot
+
                     clickedSlot.setStoredItem(held);
                     playerEntity.setHeldItem(inSlot);
                 }
             }
             default -> {
-                // Inne sloty – zostawiamy bez zmian lub dodajemy kolejne case’y
+
             }
         }
     }
@@ -232,5 +230,42 @@ public class PlayerUpdater extends EntityUpdater
 
         playerEntity.getHeldItem().dropOnGround(dropPos);
         playerEntity.setHeldItem(null);
+    }
+
+    private void checkPickUpClickedItemFromSlot()
+    {
+        Player player = (Player)GameController.getPlayer();
+
+        if (player.getHeldItem() != null) return;
+        Slot clickedSlot = getClickedInventorySlot();
+        if (clickedSlot == null || clickedSlot.getStoredItem() == null) return;
+
+        System.out.print(clickedSlot.getStoredItem().getStatistics().getItemName());
+        player.setHeldItem(clickedSlot.getStoredItem());
+        removeItemFromSlot(clickedSlot);
+    }
+
+    private Slot getClickedInventorySlot()
+    {
+        MouseHandler mh = GameController.getMouseHandler();
+        if (!mh.isLeftButtonClicked() || wasMouseClicked) {return null;}
+        wasMouseClicked = true;
+        if (!GameController.getGameStateController().isInState(Gamestate.INVENTORY)) {return null;}
+
+        Position clickPos = mh.getMousePosition();
+        return Gui.getClickedSlot(clickPos);
+    }
+
+    private void removeItemFromSlot(Slot slot)
+    {
+        SlotType type = slot.getSlotType();
+        Player player = (Player)GameController.getPlayer();
+
+        switch (type)
+        {
+            case mainInvSlot -> player.getInventory().removeItemFromMainInv(slot.getRowNum(), slot.getColNum());
+            case beltSlot     -> player.getInventory().removeItemFromBelt(slot.getRowNum());
+            default           -> player.getInventory().removeItemFromEquipmentSlots(type);
+        }
     }
 }
