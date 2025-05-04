@@ -120,29 +120,40 @@ public class PlayerUpdater extends EntityUpdater
     public void checkDropHeldItemOnGround()
     {
         Item held = playerEntity.getHeldItem();
-        if (held == null) {return;}
-        if (!GameController.getGameStateController().isInState(Gamestate.INVENTORY))
-        if (!MouseHandler.isLeftButtonClicked()) return;
+        if (held == null) return;
 
-        System.out.print("attempt to drop");
-        int mouseX = MouseHandler.getMousePosition().getX();
-        int mouseY = MouseHandler.getMousePosition().getY();
-
-        Slot clickedSlot = Gui.getClickedSlot(new Position(mouseX, mouseY));
-
-
-        if (clickedSlot == null)
+        if (!GameController.getGameStateController().isInState(Gamestate.INVENTORY)) // on inventory close
         {
-            Position center = playerEntity.getHitbox().getCenterWorldPosition();
-            int halfTileW = playerEntity.getHitbox().getWidth() / 2;
-            int halfTileH = playerEntity.getHitbox().getHeight() / 2;
-            int dx = (int) ((Math.random() * 2 - 1) * halfTileW);
-            int dy = (int) ((Math.random() * 2 - 1) * halfTileH);
-            Position dropPos = new Position(center.getX() + dx, center.getY() + dy);
-
-            held.dropOnGround(dropPos);
-            playerEntity.setHeldItem(null);
-
+            dropHeldItemAtRandomNearby();
+            return;
         }
+
+        if (!MouseHandler.isLeftButtonClicked())    // no click happened
+        {
+            return;
+        }
+
+        Position mousePos = MouseHandler.getMousePosition();
+        Slot clickedSlot = Gui.getClickedSlot(mousePos);
+
+        if (clickedSlot == null)    // if clicked away from clickable slots
+        {
+            dropHeldItemAtRandomNearby();
+        }
+
+    }
+
+    private void dropHeldItemAtRandomNearby()
+    {
+        Position center = playerEntity.getHitbox().getCenterWorldPosition();
+        int halfW = playerEntity.getHitbox().getWidth() / 2;
+        int halfH = playerEntity.getHitbox().getHeight() / 2;
+
+        int dx = (int) ((Math.random() * 2 - 1) * halfW);
+        int dy = (int) ((Math.random() * 2 - 1) * halfH);
+        Position dropPos = new Position(center.getX() + dx, center.getY() + dy);
+
+        playerEntity.getHeldItem().dropOnGround(dropPos);
+        playerEntity.setHeldItem(null);
     }
 }
