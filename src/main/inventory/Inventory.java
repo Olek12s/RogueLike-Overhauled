@@ -11,7 +11,7 @@ import java.util.Map;
 public class Inventory
 {
     public static final int INVENTORY_WIDTH_SLOTS = 9;
-    public static final int INVENTORY_HEIGHT_SLOTS = 4;
+    public static final int INVENTORY_HEIGHT_SLOTS = 5;
     public static final int INVENTORY_BELT_SLOTS = 6;
 
     private List<Item> mainInventoryItemList;

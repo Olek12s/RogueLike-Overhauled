@@ -2,13 +2,13 @@ package main;
 
 import main.camera.Camera;
 import main.crafting.CraftingManager;
+import main.gui.cursor.CursorGui;
 import main.debug.AssetSetter;
 import main.debug.Console;
 import main.entity.Entity;
 import main.entity.EntityID;
 import main.entity.player.Player;
 import main.gui.Gui;
-import main.item.Item;
 import main.item.ItemManager;
 import main.userInput.KeyHandler;
 import main.userInput.MouseHandler;
@@ -17,6 +17,7 @@ import main.world.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class GameController extends JPanel implements Runnable
@@ -50,11 +51,13 @@ public class GameController extends JPanel implements Runnable
     public static void addDrawable(IDrawable drawable) {drawables.add(drawable);}
     public static void removeUpdatable(IUpdatable updatable) {updatables.remove(updatable);}
     public static void removeDrawable(IDrawable drawable) {drawables.remove(drawable);}
+    public static MouseHandler getMouseHandler() {return mouseHandler;}
+    public static CursorGui getCursorGui() {
+        return cursor;
+    }
 
 
-
-
-                            //                       //
+                             //                       //
                             //  CLASS INSTANCES      //
                             //                       //
 
@@ -70,6 +73,7 @@ public class GameController extends JPanel implements Runnable
     private static CraftingManager craftingManager;
     private static AssetSetter assetSetter;
     private static GameStateController gameStateController;
+    private static CursorGui cursor;
 
 
     private GameController()
@@ -78,6 +82,7 @@ public class GameController extends JPanel implements Runnable
         updatables = new ArrayList<>();
         mainThread = new Thread();
         mainThread.start();
+        hideCursor();
     }
 
     public static GameController getInstance()
@@ -98,6 +103,7 @@ public class GameController extends JPanel implements Runnable
             gui = new Gui();
             assetSetter = new AssetSetter();
             gameStateController = new GameStateController();
+            cursor = new CursorGui();
 
             //mapGenerator = new MapGenerator();
         }
@@ -196,5 +202,13 @@ public class GameController extends JPanel implements Runnable
         g2.dispose();
         long end = System.nanoTime();
         renderTime = end-start;
+    }
+
+    private void hideCursor()
+    {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        BufferedImage cursorImg = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB); // Transparent image
+        java.awt.Cursor blankCursor = toolkit.createCustomCursor(cursorImg, new Point(0, 0), "cursor");
+        this.setCursor(blankCursor);
     }
 }

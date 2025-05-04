@@ -99,7 +99,6 @@ public class PlayerUpdater extends EntityUpdater
         {
             candidates.addAll(c.getItems());
         }
-        System.out.println("a");
         // attempt picking up items
         for (Item item : candidates)
         {

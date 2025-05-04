@@ -99,30 +99,30 @@ public class ItemManager
             case BLUE_FLOWER          -> 1;
             case YELLOW_FLOWER        -> 1;
 
-            case WOODEN_BOOTS         -> 1;
-            case IRON_BOOTS           -> 1;
-            case DIAMOND_BOOTS        -> 1;
-            case RUBY_BOOTS           -> 1;
+            case WOODEN_BOOTS         -> 2;
+            case IRON_BOOTS           -> 2;
+            case DIAMOND_BOOTS        -> 2;
+            case RUBY_BOOTS           -> 2;
 
-            case WOODEN_CHESTPLATE    -> 1;
-            case IRON_CHESTPLATE      -> 1;
-            case DIAMOND_CHESTPLATE   -> 1;
-            case RUBY_CHESTPLATE      -> 1;
+            case WOODEN_CHESTPLATE    -> 2;
+            case IRON_CHESTPLATE      -> 2;
+            case DIAMOND_CHESTPLATE   -> 2;
+            case RUBY_CHESTPLATE      -> 2;
 
-            case WOODEN_PANTS         -> 1;
-            case IRON_PANTS           -> 1;
-            case DIAMOND_PANTS        -> 1;
-            case RUBY_PANTS           -> 1;
+            case WOODEN_PANTS         -> 2;
+            case IRON_PANTS           -> 2;
+            case DIAMOND_PANTS        -> 2;
+            case RUBY_PANTS           -> 2;
 
-            case WOODEN_HELMET        -> 1;
-            case IRON_HELMET          -> 1;
-            case DIAMOND_HELMET       -> 1;
-            case RUBY_HELMET          -> 1;
+            case WOODEN_HELMET        -> 2;
+            case IRON_HELMET          -> 2;
+            case DIAMOND_HELMET       -> 2;
+            case RUBY_HELMET          -> 2;
 
-            case WOODEN_SHIELD        -> 1;
-            case IRON_SHIELD          -> 1;
-            case DIAMOND_SHIELD       -> 1;
-            case RUBY_SHIELD          -> 1;
+            case WOODEN_SHIELD        -> 2;
+            case IRON_SHIELD          -> 2;
+            case DIAMOND_SHIELD       -> 2;
+            case RUBY_SHIELD          -> 2;
 
             case GEL_RING             -> 1;
             case GEL_AMULET           -> 1;
@@ -144,25 +144,25 @@ public class ItemManager
             case DIAMOND_BOOTS        -> 1;
             case RUBY_BOOTS           -> 1;
 
-            case WOODEN_CHESTPLATE    -> 1;
-            case IRON_CHESTPLATE      -> 1;
-            case DIAMOND_CHESTPLATE   -> 1;
-            case RUBY_CHESTPLATE      -> 1;
+            case WOODEN_CHESTPLATE    -> 3;
+            case IRON_CHESTPLATE      -> 3;
+            case DIAMOND_CHESTPLATE   -> 3;
+            case RUBY_CHESTPLATE      -> 3;
 
-            case WOODEN_PANTS         -> 1;
-            case IRON_PANTS           -> 1;
-            case DIAMOND_PANTS        -> 1;
-            case RUBY_PANTS           -> 1;
+            case WOODEN_PANTS         -> 3;
+            case IRON_PANTS           -> 3;
+            case DIAMOND_PANTS        -> 3;
+            case RUBY_PANTS           -> 3;
 
-            case WOODEN_HELMET        -> 1;
-            case IRON_HELMET          -> 1;
-            case DIAMOND_HELMET       -> 1;
-            case RUBY_HELMET          -> 1;
+            case WOODEN_HELMET        -> 2;
+            case IRON_HELMET          -> 2;
+            case DIAMOND_HELMET       -> 2;
+            case RUBY_HELMET          -> 2;
 
-            case WOODEN_SHIELD        -> 1;
-            case IRON_SHIELD          -> 1;
-            case DIAMOND_SHIELD       -> 1;
-            case RUBY_SHIELD          -> 1;
+            case WOODEN_SHIELD        -> 2;
+            case IRON_SHIELD          -> 2;
+            case DIAMOND_SHIELD       -> 2;
+            case RUBY_SHIELD          -> 2;
 
             case GEL_RING             -> 1;
             case GEL_AMULET           -> 1;

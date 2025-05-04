@@ -38,8 +38,8 @@ public class Console implements IUpdatable
 
             System.out.print("Update time: " + updateTime / 1_000_000.0 + " ms | Render time: " + renderTime / 1_000_000.0 + " ms | ");
             System.out.print("World Position: " + playerPosition + " | ");
-            System.out.println("Hitbox position: " + hitboxPosition);
-            System.out.println("Render: " + Camera.getRenderDistance());
+            System.out.print("Hitbox position: " + hitboxPosition + " | ");
+            System.out.println("Render: " + Camera.getRenderDistance() + " | ");
             //System.out.println("Tile: " + MapManager.getCurrentMap().getTile(playerPosition));
         }
         catch (NullPointerException ex)
