@@ -3,7 +3,9 @@ package main.entity.player;
 import main.GameController;
 import main.Gamestate;
 import main.gui.Gui;
+import main.inventory.Inventory;
 import main.inventory.Slot;
+import main.inventory.SlotType;
 import main.item.Item;
 import main.userInput.MouseHandler;
 import main.utilities.Direction;
@@ -19,9 +21,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static main.inventory.SlotType.beltSlot;
+
 public class PlayerUpdater extends EntityUpdater
 {
     Player playerEntity;
+    private boolean wasMouseClicked = false;
+
+
     public PlayerUpdater(Player entity)
     {
         super(entity);
@@ -32,6 +39,13 @@ public class PlayerUpdater extends EntityUpdater
     public void update()
     {
         super.update();
+
+        MouseHandler mh = GameController.getMouseHandler();
+        if (mh.isLeftButtonReleased())
+        {
+            wasMouseClicked = false;
+        }
+
         updatePlayerDirection();
         checkCrouch();
 
@@ -128,10 +142,12 @@ public class PlayerUpdater extends EntityUpdater
             return;
         }
 
-        if (!MouseHandler.isLeftButtonClicked())    // no click happened
+        if (!MouseHandler.isLeftButtonClicked() || wasMouseClicked)    // no click happened
         {
             return;
         }
+        wasMouseClicked = true;
+        System.err.println("click");
 
         Position mousePos = MouseHandler.getMousePosition();
         Slot clickedSlot = Gui.getClickedSlot(mousePos);
@@ -140,7 +156,68 @@ public class PlayerUpdater extends EntityUpdater
         {
             dropHeldItemAtRandomNearby();
         }
+        else
+        {
+          //  handleClickOnSlot(mousePos);
+        }
+    }
 
+    private void handleClickOnSlot(Position clickPos)
+    {
+        Inventory inv = playerEntity.getInventory();
+        Item held = playerEntity.getHeldItem();
+        if (held == null) return;
+
+        // Znajdź slot pod kursorem
+        Slot clickedSlot = Gui.getClickedSlot(clickPos);
+        if (clickedSlot == null) return;
+
+        SlotType type = clickedSlot.getSlotType();
+
+        switch (type) {
+            case mainInvSlot -> {
+                int x = clickedSlot.getColNum();
+                int y = clickedSlot.getRowNum();
+                Item inSlot = clickedSlot.getStoredItem();
+
+                if (inSlot == null) {
+                    // Wkładamy held do pustego slotu
+                    inv.addItem(held, x, y);
+                    playerEntity.setHeldItem(null);
+                } else {
+                    // Swap: held <-> inSlot
+                    // 1. Włóż held na miejsce inSlot
+                    inv.removeItemFromMainInv(x, y);
+                    inv.addItem(held, x, y);
+                    held.setInventoryPosition(new Position(x, y));
+
+                    // 2. Podnieś poprzedni item
+                    playerEntity.setHeldItem(inSlot);
+                    inSlot.setInventoryPosition(null);
+
+                    // Usuń stary item z listy i dodaj nowy
+                    inv.getMainInventoryItemList().remove(inSlot);
+                    inv.getMainInventoryItemList().add(held);
+                }
+            }
+            case beltSlot -> {
+                int idx = clickedSlot.getColNum();
+                Item inSlot = clickedSlot.getStoredItem();
+
+                if (inSlot == null) {
+                    // Wkładamy held na pusty pasek
+                    clickedSlot.setStoredItem(held);
+                    playerEntity.setHeldItem(null);
+                } else {
+                    // Swap: held <-> inSlot
+                    clickedSlot.setStoredItem(held);
+                    playerEntity.setHeldItem(inSlot);
+                }
+            }
+            default -> {
+                // Inne sloty – zostawiamy bez zmian lub dodajemy kolejne case’y
+            }
+        }
     }
 
     private void dropHeldItemAtRandomNearby()

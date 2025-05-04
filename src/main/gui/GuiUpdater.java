@@ -16,6 +16,7 @@ public class GuiUpdater implements IUpdatable
     private Gui gui;
     private boolean wasMouseClickRead = false;
 
+
     public GuiUpdater(Gui gui)
     {
         this.gui = gui;
