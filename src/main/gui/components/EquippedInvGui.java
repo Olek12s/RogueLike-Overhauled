@@ -1,7 +1,10 @@
-package main.gui;
+package main.gui.components;
 
 import main.GameController;
+import main.gui.ClickableSlots;
+import main.gui.Gui;
 import main.inventory.Inventory;
+import main.inventory.Slot;
 import main.inventory.SlotType;
 import main.utilities.Position;
 
@@ -10,7 +13,7 @@ import java.awt.*;
 import static main.gui.GuiRenderer.renderFrame;
 import static main.gui.GuiRenderer.renderInventoryItem;
 
-public class EquippedInvGui
+public class EquippedInvGui implements ClickableSlots
 {
     private Position helmetSlotPosition;
     private Position chestplateSlotPosition;
@@ -151,5 +154,11 @@ public class EquippedInvGui
         }
 
         g2d.dispose();
+    }
+
+    @Override
+    public Slot getSlotAt(Position pos)
+    {
+        return null;
     }
 }

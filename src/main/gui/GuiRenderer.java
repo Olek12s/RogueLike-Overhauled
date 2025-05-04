@@ -30,12 +30,12 @@ public class GuiRenderer implements IDrawable
     {
         if (GameController.getGameStateController().isInState(Gamestate.INVENTORY))
         {
-            gui.getBeltInvGui().renderInventorybelt(g2);
             gui.getMainInvGui().renderMainInventory(g2);
             gui.getStatisticsGui().renderStatisticsFrame(g2);
             gui.getEquippedInvGui().renderEquippedFrame(g2);
         }
         gui.getCraftingGui().renderCrafting(g2);
+        gui.getBeltInvGui().renderInventorybelt(g2);
         //gui.getDebugInfoGui().renderDebugInfo(g2);
         gui.getHealthBar().renderHealthBar(g2);
 

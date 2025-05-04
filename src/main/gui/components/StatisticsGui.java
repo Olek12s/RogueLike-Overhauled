@@ -1,7 +1,8 @@
-package main.gui;
+package main.gui.components;
 
 import main.GameController;
 import main.entity.Statistics;
+import main.gui.Gui;
 import main.inventory.Inventory;
 import main.utilities.Movement;
 import main.utilities.Position;

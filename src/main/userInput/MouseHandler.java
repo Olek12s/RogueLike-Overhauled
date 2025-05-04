@@ -9,66 +9,59 @@ import java.awt.event.*;
 
 public class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener, IUpdatable
 {
-    Position mousePosition;
+    private Position mousePosition;
+    private boolean leftButtonClicked = false;
+    private boolean leftButtonReleased = true;
 
-    public Position getMousePosition() {
+    public MouseHandler() {
+        mousePosition = new Position(GameController.getInstance().getWidth() / 2, GameController.getInstance().getHeight() / 2);
+        GameController.addUpdatable(this);
+    }
+
+
+    public boolean isLeftButtonClicked() {return leftButtonClicked;}
+    public void setLeftButtonClicked(boolean value) {this.leftButtonClicked = value;}
+    public boolean isLeftButtonReleased() {return leftButtonReleased;}
+
+    public Position getMousePosition()
+    {
         return mousePosition;
-    }
-
-    public MouseHandler()
-    {
-        mousePosition = new Position(GameController.getInstance().getWidth()/2, GameController.getInstance().getHeight()/2);
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e)
-    {
-
     }
 
     @Override
     public void mousePressed(MouseEvent e)
     {
-
+        if (e.getButton() == MouseEvent.BUTTON1)
+        {
+            leftButtonClicked = true;
+            leftButtonReleased = false;
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e)
     {
-
+        leftButtonClicked = false;
+        leftButtonReleased = true;
     }
 
-    @Override
-    public void mouseEntered(MouseEvent e)
-    {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e)
-    {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e)
+    @Override public void mouseDragged(MouseEvent e)
     {
         mousePosition.setX(e.getX());
         mousePosition.setY(e.getY());
     }
-
-    @Override
-    public void mouseMoved(MouseEvent e)
+    @Override public void mouseMoved(MouseEvent e)
     {
         mousePosition.setX(e.getX());
         mousePosition.setY(e.getY());
     }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e)
+    @Override public void mouseWheelMoved(MouseWheelEvent e)
     {
         Camera.changeCameraZoom(e.getWheelRotation());
     }
+    @Override public void mouseClicked(MouseEvent e) {}
+    @Override public void mouseEntered(MouseEvent e) {}
+    @Override public void mouseExited(MouseEvent e) {}
 
     @Override
     public void update()

@@ -1,12 +1,17 @@
-package main.gui;
+package main.gui.components;
 
 import main.GameController;
+import main.gui.ClickableSlots;
+import main.gui.Gui;
+import main.gui.GuiRenderer;
 import main.inventory.Inventory;
+import main.inventory.Slot;
 import main.item.Item;
+import main.utilities.Position;
 
 import java.awt.*;
 
-public class BeltInvGui
+public class BeltInvGui implements ClickableSlots
 {
     public void renderInventorybelt(Graphics g2)
     {
@@ -49,5 +54,34 @@ public class BeltInvGui
                 GuiRenderer.renderInventoryItem(g2d, item, x, beltY, true);
             }
         }
+    }
+
+    @Override
+    public Slot getSlotAt(Position pos)
+    {
+        int slotSize = Gui.getSlotSize();
+        int slotCount = Inventory.INVENTORY_BELT_SLOTS;
+        int totalWidth = slotCount * slotSize;
+
+        int marginFromBottom = 10;
+        int beltX = (GameController.getInstance().getWidth() - totalWidth) / 2;
+        int beltY = GameController.getInstance().getHeight() - slotSize - marginFromBottom;
+
+        int mouseX = pos.getX();
+        int mouseY = pos.getY();
+
+        // checking if click occured within belt
+        if (mouseY >= beltY && mouseY <= beltY + slotSize)
+        {
+            for (int i = 0; i < slotCount; i++)
+            {
+                int slotX = beltX + i * slotSize;
+                if (mouseX >= slotX && mouseX <= slotX + slotSize)
+                {
+                    return GameController.getPlayer().getInventory().getBeltSlots()[i];
+                }
+            }
+        }
+        return null;
     }
 }

@@ -1,8 +1,10 @@
-package main.gui;
+package main.gui.components;
 
 import main.GameController;
 import main.crafting.CraftingManager;
 import main.crafting.CraftingRecipe;
+import main.gui.Gui;
+import main.gui.GuiRenderer;
 import main.inventory.Inventory;
 import main.item.Item;
 

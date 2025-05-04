@@ -1,13 +1,17 @@
-package main.gui;
+package main.gui.components;
 
 import main.GameController;
+import main.gui.ClickableSlots;
+import main.gui.Gui;
+import main.gui.GuiRenderer;
 import main.inventory.Inventory;
+import main.inventory.Slot;
 import main.item.Item;
 import main.utilities.Position;
 
 import java.awt.*;
 
-public class MainInvGui
+public class MainInvGui implements ClickableSlots
 {
     public void renderMainInventory(Graphics g2)
     {
@@ -56,5 +60,11 @@ public class MainInvGui
     public MainInvGui()
     {
 
+    }
+
+    @Override
+    public Slot getSlotAt(Position pos)
+    {
+        return null;
     }
 }

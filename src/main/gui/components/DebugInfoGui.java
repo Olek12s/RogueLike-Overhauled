@@ -1,6 +1,7 @@
-package main.gui;
+package main.gui.components;
 
 import main.GameController;
+import main.gui.Gui;
 import main.world.tile.Tile;
 
 import java.awt.*;

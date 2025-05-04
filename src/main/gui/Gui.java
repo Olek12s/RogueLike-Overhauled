@@ -1,8 +1,11 @@
 package main.gui;
 
-import main.entity.Statistics;
+import main.gui.components.*;
+import main.inventory.Slot;
+import main.utilities.Position;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Gui
 {
@@ -16,6 +19,8 @@ public class Gui
     private HealthBarGui healthBar;
     private MainInvGui mainInvGui;
     private StatisticsGui statisticsGui;
+
+    private static ArrayList<ClickableSlots> GUIsWithClickableSlots;
 
     private static int scaleX;
     private static int scaleY;
@@ -54,6 +59,8 @@ public class Gui
     public static void setScaleY(int scaleY) {Gui.scaleY = scaleY;}
     public static void setScale(int scale) {Gui.scale = scale;}
 
+    public static ArrayList<ClickableSlots> getGUIsWithClickableSlots() {return GUIsWithClickableSlots;}
+
     public Gui()
     {
 
@@ -65,7 +72,27 @@ public class Gui
        this.mainInvGui = new MainInvGui();
        this.statisticsGui = new StatisticsGui();
 
+       this.GUIsWithClickableSlots = new ArrayList<>();
+       GUIsWithClickableSlots.add(beltInvGui);
+       GUIsWithClickableSlots.add(equippedInvGui);
+       GUIsWithClickableSlots.add(mainInvGui);
+
        guiRenderer = new GuiRenderer(this);
        guiUpdater = new GuiUpdater(this);
+    }
+
+    public static Slot getClickedSlot(Position clickPos)
+    {
+        for (ClickableSlots gui : Gui.getGUIsWithClickableSlots())
+        {
+            Slot slot = gui.getSlotAt(clickPos);
+            if (slot != null)
+            {
+                System.out.println(slot.getSlotType());
+                return slot;
+            }
+        }
+        System.out.println("null");
+        return null;
     }
 }
