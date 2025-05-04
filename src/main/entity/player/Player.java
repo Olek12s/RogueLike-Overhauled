@@ -15,6 +15,7 @@ public class Player extends Entity
 
     public Item getHeldItem() {return heldItem;}
     public void setHeldItem(Item heldItem) {this.heldItem = heldItem;}
+    public int test() {return 1;}
 
     public Player(EntityID entityID)
     {

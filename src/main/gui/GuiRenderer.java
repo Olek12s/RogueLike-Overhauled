@@ -3,6 +3,7 @@ package main.gui;
 import main.GameController;
 import main.Gamestate;
 import main.IDrawable;
+import main.entity.player.Player;
 import main.item.Item;
 import main.utilities.DrawPriority;
 import main.utilities.sprite.Sprite;
@@ -33,22 +34,44 @@ public class GuiRenderer implements IDrawable
             gui.getMainInvGui().renderMainInventory(g2);
             gui.getStatisticsGui().renderStatisticsFrame(g2);
             gui.getEquippedInvGui().renderEquippedFrame(g2);
+            renderHeldItem(g2);
         }
         gui.getCraftingGui().renderCrafting(g2);
         gui.getBeltInvGui().renderInventorybelt(g2);
         //gui.getDebugInfoGui().renderDebugInfo(g2);
         gui.getHealthBar().renderHealthBar(g2);
+    }
+
+    public void renderHeldItem(Graphics g2)
+    {
+        Graphics2D g2d = (Graphics2D) g2.create();
+        Item heldItem = ((Player)GameController.getPlayer()).getHeldItem();
+        if (heldItem == null) return;
+
+        int itemSlotWidth = heldItem.getSlotWidth();
+        int itemSlotHeight = heldItem.getSlotHeight();
+        int itemPixelWidth = itemSlotWidth * Gui.getSlotSize();
+        int itemPixelHeight = itemSlotHeight * Gui.getSlotSize();
 
 
-        /*
-    private BeltInvGui beltInvGui;
-    private CraftingGui craftingGui;
-    private DebugInfoGui debugInfoGui;
-    private EquippedInvGui equippedInvGui;
-    private HealthBarGui healthBar;
-    private MainInvGui mainInvGui;
-    private Statistics statisticsGui;
-        */
+        Sprite sprite = heldItem.getSprite();
+        int spriteWidth = sprite.getImage().getWidth();
+        int spriteHeight = sprite.getImage().getHeight();
+
+        float scaleX = (float) itemPixelWidth / spriteWidth;
+        float scaleY = (float) itemPixelHeight / spriteHeight;
+        float scale = Math.min(scaleX, scaleY);
+
+        int drawWidth = (int) (spriteWidth * scale);
+        int drawHeight = (int) (spriteHeight * scale);
+
+        int mouseX = GameController.getMouseHandler().getMousePosition().getX();
+        int mouseY = GameController.getMouseHandler().getMousePosition().getY();
+
+        int drawX = mouseX + (itemPixelWidth - drawWidth) / 2;
+        int drawY = mouseY + (itemPixelHeight - drawHeight) / 2;
+
+        g2d.drawImage(sprite.getImage(), drawX, drawY, drawWidth, drawHeight, null);
     }
 
     public static void renderFrame(Graphics g, int x, int y, int width, int height, int innerPadding, int outerWidth, int innerWidth, float opacity)

@@ -9,9 +9,11 @@ import java.awt.event.*;
 
 public class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener, IUpdatable
 {
-    private Position mousePosition;
-    private boolean leftButtonClicked = false;
-    private boolean leftButtonReleased = true;
+    private static Position mousePosition;
+    private static boolean leftButtonClicked = false;
+    private static boolean leftButtonReleased = true;
+
+
 
     public MouseHandler() {
         mousePosition = new Position(GameController.getInstance().getWidth() / 2, GameController.getInstance().getHeight() / 2);
@@ -19,11 +21,11 @@ public class MouseHandler implements MouseListener, MouseMotionListener, MouseWh
     }
 
 
-    public boolean isLeftButtonClicked() {return leftButtonClicked;}
-    public void setLeftButtonClicked(boolean value) {this.leftButtonClicked = value;}
-    public boolean isLeftButtonReleased() {return leftButtonReleased;}
+    public static boolean isLeftButtonClicked() {return leftButtonClicked;}
+    public static void setLeftButtonClicked(boolean value) {leftButtonClicked = value;}
+    public static boolean isLeftButtonReleased() {return leftButtonReleased;}
 
-    public Position getMousePosition()
+    public static Position getMousePosition()
     {
         return mousePosition;
     }

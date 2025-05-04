@@ -159,6 +159,43 @@ public class EquippedInvGui implements ClickableSlots
     @Override
     public Slot getSlotAt(Position pos)
     {
+        Inventory inv = GameController.getPlayer().getInventory();
+        int slotSize = Gui.getSlotSize();
+        int mouseX = pos.getX();
+        int mouseY = pos.getY();
+
+        SlotType[] slotTypes = {
+                SlotType.helmetSlot, SlotType.chestplateSlot, SlotType.pantsSlot,
+                SlotType.bootsSlot, SlotType.ring1Slot, SlotType.ring2Slot,
+                SlotType.amuletSlot, SlotType.shieldSlot
+        };
+
+        Position[] slotPositions = {
+                helmetSlotPosition, chestplateSlotPosition, pantsSlotPosition,
+                bootsSlotPosition, ring1SlotPosition, ring2SlotPosition,
+                amuletSlotPosition, shieldSlotPosition
+        };
+
+        for (int i = 0; i < slotTypes.length; i++)
+        {
+            SlotType type = slotTypes[i];
+            Position p = slotPositions[i];
+
+            if (p == null) continue;
+
+            int width = SlotType.getWidthMultipler(type) * slotSize;
+            int height = SlotType.getHeightMultipler(type) * slotSize;
+
+            int slotX = p.getX();
+            int slotY = p.getY();
+
+            if (mouseX >= slotX && mouseX <= slotX + width &&
+                    mouseY >= slotY && mouseY <= slotY + height)
+            {
+                return inv.getEquipmentSlot(type);
+            }
+        }
+
         return null;
     }
 }

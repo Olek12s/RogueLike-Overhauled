@@ -67,6 +67,7 @@ public class GuiUpdater implements IUpdatable
         Slot clickedSlot = getClickedInventorySlot();
         if (clickedSlot == null || clickedSlot.getStoredItem() == null) return;
 
+        System.out.print(clickedSlot.getStoredItem().getStatistics().getItemName());
         player.setHeldItem(clickedSlot.getStoredItem());
         removeItemFromSlot(clickedSlot);
     }

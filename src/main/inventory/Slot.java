@@ -19,7 +19,7 @@ public class Slot
     public int getRowNum() {return rowNum;}
     public void setStoredItem(Item storedItem) {this.storedItem = storedItem;}
 
-    public Slot(SlotType slotType, int width, int height, int colNum, int rowNum)
+    public Slot(SlotType slotType, int width, int height, int rowNum, int colNum)
     {
         this.slotType = slotType;
         this.width = width;

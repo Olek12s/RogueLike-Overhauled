@@ -65,6 +65,34 @@ public class MainInvGui implements ClickableSlots
     @Override
     public Slot getSlotAt(Position pos)
     {
-        return null;
+        Inventory inv = GameController.getPlayer().getInventory();
+
+        int width = GameController.getInstance().getWidth();
+        int height = GameController.getInstance().getHeight();
+
+        int slotSize = Gui.getSlotSize();
+        int widthSlots = Inventory.INVENTORY_WIDTH_SLOTS;
+        int heightSlots = Inventory.INVENTORY_HEIGHT_SLOTS;
+
+        int totalWidth = widthSlots * slotSize;
+        int totalHeight = heightSlots * slotSize;
+
+        int inventoryFrameX = (width - totalWidth) / 2;
+        int inventoryFrameY = (height - totalHeight) / 2;
+
+        int mouseX = pos.getX();
+        int mouseY = pos.getY();
+
+        // check if click is within main inv
+        if (mouseX < inventoryFrameX || mouseX >= inventoryFrameX + totalWidth ||
+                mouseY < inventoryFrameY || mouseY >= inventoryFrameY + totalHeight)
+        {
+            return null;
+        }
+
+        int gridX = (mouseX - inventoryFrameX) / slotSize;
+        int gridY = (mouseY - inventoryFrameY) / slotSize;
+
+        return inv.getSlot(gridX, gridY);
     }
 }

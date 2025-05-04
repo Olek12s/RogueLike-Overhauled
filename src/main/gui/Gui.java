@@ -88,7 +88,7 @@ public class Gui
             Slot slot = gui.getSlotAt(clickPos);
             if (slot != null)
             {
-                System.out.println(slot.getSlotType());
+                System.out.println(slot.getSlotType() + " row: " + slot.getColNum() + " col: " + slot.getRowNum());
                 return slot;
             }
         }

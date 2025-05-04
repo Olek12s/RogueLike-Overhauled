@@ -32,14 +32,13 @@ public class ItemRenderer implements IDrawable
     {
         BufferedImage img = item.getSprite().getImage();
         Position wp = item.getWorldPosition();
+        if (wp == null) return;
         int worldW = img.getWidth();
         int worldH = img.getHeight();
-
         if (!Camera.isVisibleOnScreen(wp, worldW, worldH))
         {
             return;
         }
-
         Position sp = Camera.toScreenPosition(wp);
         double scale = Camera.getScaleFactor();
         int w = (int) Math.ceil(img.getWidth()  * scale);

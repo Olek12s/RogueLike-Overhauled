@@ -22,6 +22,7 @@ public class Inventory
 
     public List<Item> getMainInventoryItemList() {return mainInventoryItemList;}
     public Slot[][] getInventorySlots() {return inventorySlots;}
+    public Slot getSlot(int x, int y) {return inventorySlots[x][y];}
     public Slot[] getBeltSlots() {return beltSlots;}
     public Slot getEquipmentSlot(SlotType type) {
         return equipmentSlots.get(type);

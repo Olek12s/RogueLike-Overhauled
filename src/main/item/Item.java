@@ -27,6 +27,8 @@ public abstract class Item
         this.slotHeight = ItemManager.getSlotHeight(itemID);
         this.hitbox = ItemManager.getHitbox(itemID);
         this.itemRenderer = new ItemRenderer(this);
+        this.statistics = new ItemStatistics();
+        setStatistics();
         setInsideInventory();
     }
 
@@ -37,6 +39,8 @@ public abstract class Item
         this.slotHeight = ItemManager.getSlotHeight(itemID);
         this.hitbox = ItemManager.getHitbox(itemID);
         this.itemRenderer = new ItemRenderer(this);
+        this.statistics = new ItemStatistics();
+        setStatistics();
         dropOnGround(worldPosition);
     }
 
@@ -76,6 +80,7 @@ public abstract class Item
             MapManager.getCurrentMap().getChunk(worldPosition).addItem(this);
             this.hitbox.setWorldPosition(worldPosition);
             this.worldPosition = worldPosition;
+            GameController.addDrawable(itemRenderer);
         }
         this.isInsideInventory = isInsideInventory;
     }
