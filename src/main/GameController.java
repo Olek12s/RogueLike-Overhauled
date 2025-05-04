@@ -44,9 +44,12 @@ public class GameController extends JPanel implements Runnable
     //public static MapGenerator getMapGenerator() {return mapGenerator;}
     public static MapManager getMapManager() {return mapManager;}
     public static Camera getCamera() {return camera;}
+    public static GameStateController getGameStateController() {return gameStateController;}
 
     public static void addUpdatable(IUpdatable updatable) {updatables.add(updatable);}
     public static void addDrawable(IDrawable drawable) {drawables.add(drawable);}
+    public static void removeUpdatable(IUpdatable updatable) {updatables.remove(updatable);}
+    public static void removeDrawable(IDrawable drawable) {drawables.remove(drawable);}
 
 
 
@@ -66,6 +69,7 @@ public class GameController extends JPanel implements Runnable
     private static ItemManager itemManager;
     private static CraftingManager craftingManager;
     private static AssetSetter assetSetter;
+    private static GameStateController gameStateController;
 
 
     private GameController()
@@ -93,6 +97,7 @@ public class GameController extends JPanel implements Runnable
             camera = new Camera();
             gui = new Gui();
             assetSetter = new AssetSetter();
+            gameStateController = new GameStateController();
 
             //mapGenerator = new MapGenerator();
         }

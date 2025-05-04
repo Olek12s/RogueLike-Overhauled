@@ -4,12 +4,18 @@ import main.entity.Entity;
 import main.entity.EntityID;
 import main.entity.EntityRenderer;
 import main.entity.Statistics;
+import main.item.Item;
 import main.item.ingredients.BlueFlower;
 import main.utilities.Hitbox;
 import main.utilities.Position;
 
 public class Player extends Entity
 {
+    private Item heldItem;
+
+    public Item getHeldItem() {return heldItem;}
+    public void setHeldItem(Item heldItem) {this.heldItem = heldItem;}
+
     public Player(EntityID entityID)
     {
         super(entityID);

@@ -1,15 +1,24 @@
 package main.entity.player;
 
+import main.GameController;
+import main.item.Item;
 import main.utilities.Direction;
 import main.utilities.Position;
 import main.entity.Entity;
 import main.entity.EntityUpdater;
 import main.userInput.KeyHandler;
+import main.world.map.Chunk;
+import main.world.map.Map;
+import main.world.map.MapManager;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class PlayerUpdater extends EntityUpdater
 {
-    Entity playerEntity;
-    public PlayerUpdater(Entity entity)
+    Player playerEntity;
+    public PlayerUpdater(Player entity)
     {
         super(entity);
         this.playerEntity = entity;
@@ -21,6 +30,8 @@ public class PlayerUpdater extends EntityUpdater
         super.update();
         updatePlayerDirection();
         checkCrouch();
+
+        if (KeyHandler.isF_PRESSED()) pickUpItemFromGround();
     }
 
     private void updatePlayerDirection()
@@ -75,5 +86,47 @@ public class PlayerUpdater extends EntityUpdater
             playerEntity.setCrouching(true);
         }
         else playerEntity.setCrouching(false);
+    }
+
+    public void pickUpItemFromGround()
+    {
+        // collect items from current and neighboring chunks
+        Chunk current = playerEntity.getCurrentChunk();
+        Map map = MapManager.getCurrentMap();
+        Set<Item> candidates = new HashSet<>(current.getItems());
+        List<Chunk> neighbors = map.getChunkNeighborsDiagonals(current);
+        for (Chunk c : neighbors)
+        {
+            candidates.addAll(c.getItems());
+        }
+        System.out.println("a");
+        // attempt picking up items
+        for (Item item : candidates)
+        {
+            if (playerEntity.getHitbox().intersects(item.getHitbox()))
+            {
+                if (playerEntity.getInventory().addItem(item))
+                {
+                    item.setInsideInventory();
+                }
+            }
+        }
+    }
+
+    public boolean dropHeldItemOnGround()
+    {
+        Item held = playerEntity.getHeldItem();
+        if (held == null) {return false;}
+
+        Position center = playerEntity.getHitbox().getCenterWorldPosition();
+        int halfTileW = playerEntity.getHitbox().getWidth() / 2;
+        int halfTileH = playerEntity.getHitbox().getHeight() / 2;
+        int dx = (int) ((Math.random() * 2 - 1) * halfTileW);
+        int dy = (int) ((Math.random() * 2 - 1) * halfTileH);
+        Position dropPos = new Position(center.getX() + dx, center.getY() + dy);
+
+        held.dropOnGround(dropPos);
+        playerEntity.setHeldItem(null);
+        return true;
     }
 }

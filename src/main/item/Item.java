@@ -69,6 +69,7 @@ public abstract class Item
             MapManager.getCurrentMap().getChunk(worldPosition).removeItem(this);
             this.hitbox.setWorldPosition(null);
             this.worldPosition = null;
+            GameController.removeDrawable(itemRenderer);
         }
         else
         {

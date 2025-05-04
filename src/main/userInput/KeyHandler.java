@@ -5,6 +5,9 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener
 {
+    private static boolean E_JUST_PRESSED = false;
+
+
     private static boolean W_PRESSED = false;
     private static boolean A_PRESSED = false;
     private static boolean S_PRESSED = false;
@@ -59,6 +62,11 @@ public class KeyHandler implements KeyListener
     public static boolean isEIGHT_PRESSED() {return EIGHT_PRESSED;}
     public static boolean isNINE_PRESSED() {return NINE_PRESSED;}
     public static boolean isZERO_PRESSED() {return ZERO_PRESSED;}
+    public static boolean isE_JustPressed() {
+        boolean result = E_JUST_PRESSED;
+        E_JUST_PRESSED = false; // reset after read
+        return result;
+    }
 
     @Override
     public void keyTyped(KeyEvent e)
@@ -83,7 +91,12 @@ public class KeyHandler implements KeyListener
             case KeyEvent.VK_RIGHT: RIGHT_PRESSED = true; break;
 
             case KeyEvent.VK_I: I_PRESSED = true; break;
-            case KeyEvent.VK_E: E_PRESSED = true; break;
+            case KeyEvent.VK_E:
+                if (!E_PRESSED) {
+                    E_JUST_PRESSED = true;
+                }
+                E_PRESSED = true;
+                break;
             case KeyEvent.VK_F: F_PRESSED = true; break;
             case KeyEvent.VK_C: C_PRESSED = true; break;
             case KeyEvent.VK_SPACE: SPACE_PRESSED = true; break;
@@ -120,7 +133,10 @@ public class KeyHandler implements KeyListener
             case KeyEvent.VK_RIGHT: RIGHT_PRESSED = false; break;
 
             case KeyEvent.VK_I: I_PRESSED = false; break;
-            case KeyEvent.VK_E: E_PRESSED = false; break;
+            case KeyEvent.VK_E:
+                E_PRESSED = false;
+                E_JUST_PRESSED = false;
+                break;
             case KeyEvent.VK_F: F_PRESSED = false; break;
             case KeyEvent.VK_C: C_PRESSED = false; break;
             case KeyEvent.VK_SPACE: SPACE_PRESSED = false; break;

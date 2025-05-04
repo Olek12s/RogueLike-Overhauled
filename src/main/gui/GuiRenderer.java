@@ -1,6 +1,7 @@
 package main.gui;
 
 import main.GameController;
+import main.Gamestate;
 import main.IDrawable;
 import main.item.Item;
 import main.utilities.DrawPriority;
@@ -27,13 +28,17 @@ public class GuiRenderer implements IDrawable
     @Override
     public void draw(Graphics g2)
     {
-        //gui.getBeltInvGui().renderInventorybelt(g2);        // correct positioning
+        if (GameController.getGameStateController().isInState(Gamestate.INVENTORY))
+        {
+            gui.getBeltInvGui().renderInventorybelt(g2);
+            gui.getMainInvGui().renderMainInventory(g2);
+            gui.getStatisticsGui().renderStatisticsFrame(g2);
+            gui.getEquippedInvGui().renderEquippedFrame(g2);
+        }
         gui.getCraftingGui().renderCrafting(g2);
-        //gui.getDebugInfoGui().renderDebugInfo(g2);          // correct positioning
-        //gui.getEquippedInvGui().renderEquippedFrame(g2);    // correct positioning
-        //gui.getHealthBar().renderHealthBar(g2);             // correct positioning
-        //gui.getMainInvGui().renderMainInventory(g2);        // correct positioning
-        //gui.getStatisticsGui().renderStatisticsFrame(g2);   // correct positioning
+        //gui.getDebugInfoGui().renderDebugInfo(g2);
+        gui.getHealthBar().renderHealthBar(g2);
+
 
         /*
     private BeltInvGui beltInvGui;

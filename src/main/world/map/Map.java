@@ -5,6 +5,7 @@ import main.world.tile.Tile;
 import main.world.tile.TileID;
 import main.world.worldGeneration.MapGenerator;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -68,6 +69,71 @@ public class Map
     }
     public Chunk getChunk(Position worldPosition) {return getChunk(worldPosition.getX(), worldPosition.getY());}
     public Chunk getChunkByIndex(int chunkX, int chunkY) {return chunks[chunkX][chunkY];}
+
+    public ArrayList<Chunk> getChunkNeighborsNotDiagonals(Chunk sourceChunk)
+    {
+        ArrayList<Chunk> resultChunks = new ArrayList<>();
+        int sourceChunkXIndex = sourceChunk.getxIndex();
+        int sourceChunkYIndex = sourceChunk.getyIndex();
+
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                if ((i == 0 && j == 0) || (i != 0 && j != 0)) continue; // ignore source chunks and diagonlas
+
+                int neighborX = sourceChunkXIndex + i;
+                int neighborY = sourceChunkYIndex + j;
+
+                if (neighborX >= 0 && neighborY >= 0 && neighborX < chunks.length && neighborY < chunks[0].length)
+                {
+                    Chunk neighbor = chunks[neighborX][neighborY];
+                    if (neighbor != null)
+                    {
+                        resultChunks.add(neighbor);
+                    }
+                }
+
+            }
+        }
+        return resultChunks;
+    }
+
+    /**
+     * Returns a list of all neighboring chunks for the given source chunk,
+     * including diagonal neighbors. The source chunk itself is excluded.
+     *
+     * @param sourceChunk The source chunk for which to retrieve all neighbors.
+     * @return An ArrayList containing all neighboring chunks, including those located diagonally.
+     */
+    public ArrayList<Chunk> getChunkNeighborsDiagonals(Chunk sourceChunk)
+    {
+        ArrayList<Chunk> resultChunks = new ArrayList<>();
+        int sourceChunkXIndex = sourceChunk.getxIndex();
+        int sourceChunkYIndex = sourceChunk.getyIndex();
+
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                if (i == 0 && j == 0) continue; // Ignore the source chunk
+
+                int neighborX = sourceChunkXIndex + i;
+                int neighborY = sourceChunkYIndex + j;
+
+                // Check if the neighbor is within map bounds
+                if (neighborX >= 0 && neighborY >= 0 && neighborX < chunks.length && neighborY < chunks[0].length)
+                {
+                    Chunk neighbor = chunks[neighborX][neighborY];
+                    if (neighbor != null)
+                    {
+                        resultChunks.add(neighbor);
+                    }
+                }
+            }
+        }
+        return resultChunks;
+    }
 
 
     private void createChunks(short[][] tileMapIDValues)

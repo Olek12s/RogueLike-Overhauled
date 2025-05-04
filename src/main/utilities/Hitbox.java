@@ -72,6 +72,11 @@ public class Hitbox
                 point.getY() <= center.getY() + halfH;
     }
 
+    public boolean intersects(Hitbox other)
+    {
+        return this.getHitboxRect().intersects(other.getHitboxRect());
+    }
+
 
     @Override
     public String toString()
